@@ -1,1 +1,1 @@
-Behaviour game jam 2026
+Gamerella game jam 2026
