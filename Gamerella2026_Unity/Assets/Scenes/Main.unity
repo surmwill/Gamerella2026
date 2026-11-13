@@ -1020,10 +1020,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9598272452615977, guid: caa34112d121f5b49893fd6955b05b95, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -841.7767
-      objectReference: {fileID: 0}
-    - target: {fileID: 9598272452615977, guid: caa34112d121f5b49893fd6955b05b95, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -1062,6 +1058,18 @@ PrefabInstance:
     - target: {fileID: 713477004123687837, guid: caa34112d121f5b49893fd6955b05b95, type: 3}
       propertyPath: m_Name
       value: Screen_GameOver
+      objectReference: {fileID: 0}
+    - target: {fileID: 713477004123687837, guid: caa34112d121f5b49893fd6955b05b95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 967121848038930727, guid: caa34112d121f5b49893fd6955b05b95, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 520.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 967121848038930727, guid: caa34112d121f5b49893fd6955b05b95, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 111.72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
