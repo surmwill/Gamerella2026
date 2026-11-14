@@ -19,9 +19,27 @@ public class EnemyFactory : MonoBehaviour
     [SerializeField]
     private int _numEnemiesInPool = 10;
 
-    public void SpawnEnemy(EnemyType enemyType)
+    public EnemyController SpawnEnemy(EnemyType enemyType)
     {
-        
+        EnemyController enemy = null;
+        if (_enemiesPool.childCount > 0)
+        {
+            enemy = _enemiesPool.GetChild(0).GetComponent<EnemyController>();
+        }
+        else
+        {
+            Debug.LogWarning("Enemy pool empty, using fresh instantiation");
+            enemy = Instantiate(_enemyPrefab, _enemiesPool);
+            enemy.gameObject.SetActive(false);
+        }
+
+        return enemy;
+    }
+
+    public void ReturnEnemyToPool(EnemyController enemy)
+    {
+        enemy.transform.SetParent(_enemiesPool);
+        enemy.gameObject.SetActive(false);
     }
 
     #if UNITY_EDITOR
