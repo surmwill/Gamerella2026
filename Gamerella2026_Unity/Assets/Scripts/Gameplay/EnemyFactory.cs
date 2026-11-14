@@ -33,11 +33,17 @@ public class EnemyFactory : MonoBehaviour
             enemy.gameObject.SetActive(false);
         }
 
+        Transform spawnPoint = _enemySpawnPoints[Random.Range(0, _enemySpawnPoints.Count)];
+        enemy.transform.SetParent(spawnPoint);
+        enemy.transform.localPosition = Vector3.zero;
+        
+        
+
         return enemy;
     }
 
     public void ReturnEnemyToPool(EnemyController enemy)
-    {
+    {   
         enemy.transform.SetParent(_enemiesPool);
         enemy.gameObject.SetActive(false);
     }
@@ -71,10 +77,11 @@ public class EnemyFactory : MonoBehaviour
     
     public enum EnemyType
     {
-        White = 0,
-        Red = 1,
-        Green = 2,
-        Blue = 3,
-        Black = 4
+        // Comment = value of each chip
+        White = 0, // 1
+        Red = 1, // 5
+        Green = 2, // 25
+        Blue = 3, // 50
+        Black = 4 // 100
     }
 }
