@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class EnemyFactory : MonoBehaviour
 {
     [SerializeField]
@@ -10,13 +14,43 @@ public class EnemyFactory : MonoBehaviour
     private List<Transform> _enemySpawnPoints = null;
 
     [SerializeField]
-    private GameObject _enemyPrefab = null;
+    private EnemyController _enemyPrefab = null;
+
+    [SerializeField]
+    private int _numEnemiesInPool = 10;
 
     public void SpawnEnemy(EnemyType enemyType)
     {
         
     }
 
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        _numEnemiesInPool = Mathf.Max(_numEnemiesInPool, 0);
+        
+        if (_enemiesPool == null || _enemyPrefab == null)
+        {
+            return;
+        }
+        
+        for (int i = _enemiesPool.childCount; i < _numEnemiesInPool; i++)
+        {
+            EnemyController enemy = (EnemyController) PrefabUtility.InstantiatePrefab(_enemyPrefab);
+            enemy.transform.SetParent(_enemiesPool);
+            enemy.gameObject.SetActive(false);
+        }
+
+        EditorApplication.delayCall += () =>
+        {
+            for (int i = _enemiesPool.childCount; i > _numEnemiesInPool; i--)
+            {
+                DestroyImmediate(_enemiesPool.GetChild(0).gameObject);
+            }
+        };
+    }
+    #endif
+    
     public enum EnemyType
     {
         White = 0,
