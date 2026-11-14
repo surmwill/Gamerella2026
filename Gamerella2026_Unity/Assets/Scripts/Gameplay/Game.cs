@@ -1,5 +1,3 @@
-using System;
-using TMPro;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -8,9 +6,11 @@ public class Game : MonoBehaviour
     private PlayerController _playerController = null;
 
     [SerializeField]
-    private EnemyFactory _enemyFactor = null;
-    
-    private static Game _instance;
+    private EnemyManager _enemyManager = null;
+
+    public float ElapsedTimeSeconds => Time.realtimeSinceStartup - _gameStartedSeconds;
+
+    private float _gameStartedSeconds;
     
     public static Game Instance
     {
@@ -32,7 +32,9 @@ public class Game : MonoBehaviour
     
     public PlayerController PlayerController => _playerController;
 
-    public EnemyFactory EnemyFactory => _enemyFactor;
+    public EnemyManager EnemyManager => _enemyManager;
+    
+    private static Game _instance;
     
     private void Awake()
     {
@@ -42,6 +44,9 @@ public class Game : MonoBehaviour
             Debug.LogError($"Expected component of type {nameof(Game)}");
         }
     }
-    
-    
+
+    private void Start()
+    {
+        _gameStartedSeconds = Time.realtimeSinceStartup;
+    }
 }

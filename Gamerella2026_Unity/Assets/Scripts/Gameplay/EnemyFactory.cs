@@ -18,6 +18,8 @@ public class EnemyFactory : MonoBehaviour
 
     [SerializeField]
     private int _numEnemiesInPool = 10;
+    
+    public int NumEnemiesInPool => _numEnemiesInPool;
 
     public EnemyController SpawnEnemy(EnemyType enemyType)
     {
@@ -36,8 +38,6 @@ public class EnemyFactory : MonoBehaviour
         Transform spawnPoint = _enemySpawnPoints[Random.Range(0, _enemySpawnPoints.Count)];
         enemy.transform.SetParent(spawnPoint);
         enemy.transform.localPosition = Vector3.zero;
-        
-        
 
         return enemy;
     }

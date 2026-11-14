@@ -4,11 +4,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float _velocityMultiplier = 1f;
+    private float _baseScaleVelocity = 20f;
     
     [SerializeField]
     private Rigidbody2D _playerRigidbody = null;
 
+    public float ExternalScaleVelocity { get; set; } = 1f;
+    
+    private float TotalScaleVelocity => _baseScaleVelocity * ExternalScaleVelocity; 
+    
     private Vector2 _moveInput;
     
     private void Update()
@@ -39,6 +43,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _playerRigidbody.linearVelocity = _moveInput * _velocityMultiplier;
+        _playerRigidbody.linearVelocity = _moveInput * TotalScaleVelocity;
     }
 }
