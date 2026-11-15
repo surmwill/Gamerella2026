@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static GameModifiers;
@@ -6,10 +7,11 @@ using static GameModifiers;
 public class LootBoxConfigurationSO : ScriptableObject
 {
     [SerializeField]
-    private List<ModifierType> _modifiers = null;
+    private List<ModifierValue> _modifiers = null;
     
+    public List<ModifierValue> Modifiers => _modifiers;
     
-    
+    [Serializable]
     public class ModifierValue
     {
         [SerializeField]

@@ -17,20 +17,6 @@ public class GameModifiers : MonoBehaviour
     
     [SerializeField]
     private int _extraPlayerAttacksPerSecond = 0;
-
-    public static readonly List<ModifierType> GoodModifiers = new()
-    {
-        ModifierType.PlayerAttackFaster, 
-        ModifierType.PlayerMoreDamage, 
-        ModifierType.PlayerMoveFaster
-    };
-    
-    public static readonly List<ModifierType> BadModifiers = new()
-    {
-        ModifierType.PlayerAttackFaster, 
-        ModifierType.PlayerMoreDamage, 
-        ModifierType.PlayerMoveFaster
-    };
     
     // Multiplicative with the player's velocity
     public float ExtraScalePlayerVelocity
@@ -68,23 +54,23 @@ public class GameModifiers : MonoBehaviour
         switch (modifierType)
         {
             // ex: 1.5X -> 1.6X -> 1.7X faster
-            case ModifierType.PlayerMoveFaster:
+            case ModifierType.PlayerMoveSpeed:
                 ExtraScalePlayerVelocity += modifierValue;
                 break;
             
-            case ModifierType.EnemyMoveFaster:
+            case ModifierType.EnemyMoveSpeed:
                 ExtraScaleEnemyVelocity += modifierValue;
                 break;
             
-            case ModifierType.PlayerMoreDamage:
+            case ModifierType.PlayerDamage:
                 ExtraPlayerDamage += (int) modifierValue;
                 break;
             
-            case ModifierType.EnemyMoreDamage:
+            case ModifierType.EnemyDamage:
                 ExtraEnemyDamage += (int) modifierValue;
                 break;
             
-            case ModifierType.PlayerAttackFaster:
+            case ModifierType.PlayerAttackSpeed:
                 ExtraPlayerAttacksPerSecond += (int) modifierValue;
                 break;
         }
@@ -92,12 +78,12 @@ public class GameModifiers : MonoBehaviour
     
     public enum ModifierType
     {
-        PlayerAttackFaster = 0,
-        PlayerMoreDamage = 1,
-        PlayerMoveFaster = 2,
+        PlayerAttackSpeed = 0,
+        PlayerDamage = 1,
+        PlayerMoveSpeed = 2,
         
-        // EnemyAttackFaster = 10, // Enemies don't attack, just run into you
-        EnemyMoreDamage = 11,
-        EnemyMoveFaster = 12,
+        // Enemies don't have attack speed
+        EnemyDamage = 11,
+        EnemyMoveSpeed = 12,
     }
 }

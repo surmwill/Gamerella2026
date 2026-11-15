@@ -15,6 +15,9 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private Lootbox _lootboxPrefab = null;
+
+    [SerializeField]
+    private float _lootboxDropChance = 0.05f;
     
     [SerializeField]
     private float _knockbackLinearDampening = 0.15f;
@@ -40,8 +43,6 @@ public class EnemyController : MonoBehaviour
     private float ScaleVelocity => _baseStats.BaseScaleVelocity * Game.Instance.GameModifiers.ExtraScaleEnemyVelocity;
 
     private PlayerController Player => Game.Instance.Player;
-
-    private const float LootboxDropChance = 0.1f;
         
     private Sequence _knockedBackSequence = null;
     
@@ -93,9 +94,10 @@ public class EnemyController : MonoBehaviour
         _knockedBackSequence?.Kill();
         Game.Instance.EnemySpawner.CleanupEnemy(this);
 
-        if (Random.value < LootboxDropChance)
+        if (Random.value < _lootboxDropChance)
         {
-            Instantiate(_lootboxPrefab, Game.Instance.LootboxesTransform);
+            Lootbox lootbox = Instantiate(_lootboxPrefab, Game.Instance.LootboxesTransform);
+            lootbox.transform.position = transform.position;
         }
     }
     
