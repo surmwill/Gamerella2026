@@ -27,9 +27,24 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]
     private float _knockbackDuration = 0.25f;
+
+    public event Action<int> OnPlayerTokensUpdated;
+    
+    public int NumTokens 
+    { 
+        get => _numTokens;
+        set
+        {
+            if (value != _numTokens)
+            {
+                _numTokens = value;
+                OnPlayerTokensUpdated?.Invoke(NumTokens);   
+            }
+        }
+    }
     
     public float Health { get; private set; }
-
+    
     public float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage;
     
     public float KnockbackForce => _knockbackForce;
@@ -46,6 +61,8 @@ public class PlayerController : MonoBehaviour
     private const int MaxEnemiesDetectedInAttackRange = 10; 
     
     private readonly Collider2D[] _enemiesInAttackRange = new Collider2D[MaxEnemiesDetectedInAttackRange];
+
+    private int _numTokens;
     
     private float _timeOfLastAttack;
     

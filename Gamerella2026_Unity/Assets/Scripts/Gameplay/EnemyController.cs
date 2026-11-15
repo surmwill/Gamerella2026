@@ -1,6 +1,6 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
+using static EnemyConfigurationsSO;
 
 public class EnemyController : MonoBehaviour
 {
@@ -15,34 +15,38 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField]
     private float _knockbackLinearDampening = 0.15f;
+
+    [SerializeField]
+    [ReadOnly]
+    private float _health;
     
     [Header("Stats")]
     [SerializeField]
-    private float _baseHealth = 100f;
-    
-    [SerializeField]
-    private float _baseScaleVelocity = 10f;
-    
-    [SerializeField]
-    private int _baseAttackDamage = 10;
-    
-    public float Health { get; private set; }
+    private EnemyBaseStats _baseStats = null;
 
-    public float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
+    public float Health
+    {
+        get => _health; 
+        private set => _health = value;
+    }
+
+    public float AttackDamage => _baseStats.BaseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
     
     public Collider2D Collider => _collider;
     
     public float ExternalScaleVelocity { get; set; } = 1f;
     
-    private float ScaleVelocity => _baseScaleVelocity * ExternalScaleVelocity;
+    private float ScaleVelocity => _baseStats.BaseScaleVelocity * ExternalScaleVelocity;
 
     private PlayerController Player => Game.Instance.Player;
-
+        
     private Sequence _knockedBackSequence = null;
     
-    public void OnSpawned()
+    public void SpawnWithConfiguration(EnemyConfiguration enemyConfiguration)
     {
-        Health = _baseHealth;
+        _baseStats = enemyConfiguration.BaseStats;
+        Health = enemyConfiguration.BaseStats.BaseHealth;
+        
         FacePlayer();
     }
 
@@ -72,15 +76,17 @@ public class EnemyController : MonoBehaviour
         Health = Mathf.Max(Health - player.AttackDamage, 0f);
         if (Health <= 0f)
         {
-            OnKilled();
+            Kill();
             return;
         }
         
         ApplyKnockback(player.transform.position, player.KnockbackForce, player.KnockbackDuration);
     }
 
-    private void OnKilled()
+    private void Kill()
     {
+        Player.NumTokens += _baseStats.TokensDropped;
+        
         _knockedBackSequence?.Kill();
         Game.Instance.EnemySpawner.CleanupEnemy(this);
     }

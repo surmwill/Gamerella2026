@@ -707,7 +707,6 @@ MonoBehaviour:
   _rightWall: {fileID: 524262634}
   _topWall: {fileID: 1591959375}
   _botWall: {fileID: 1279381641}
-  _wallPrefab: {fileID: 0}
 --- !u!1 &721504541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,8 +1575,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1793477460}
-  - component: {fileID: 1793477461}
   - component: {fileID: 1793477462}
+  - component: {fileID: 1793477463}
+  - component: {fileID: 1793477461}
+  - component: {fileID: 1793477465}
+  - component: {fileID: 1793477464}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1633,9 +1635,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game
   _playerController: {fileID: 1831863754}
-  _enemyManager: {fileID: 0}
-  _enemySpawner: {fileID: 0}
-  _gameModifiers: {fileID: 0}
+  _enemyManager: {fileID: 1793477465}
+  _enemySpawner: {fileID: 1793477464}
+  _gameModifiers: {fileID: 1793477463}
+--- !u!114 &1793477463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793477459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb96f85f960cc7444846c1035ce062be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameModifiers
+--- !u!114 &1793477464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793477459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4cbc8f408af7df4793ab6837edaf407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  _enemyConfigurations: {fileID: 11400000, guid: 30aa87830525bab4886fd5bfb6c5b452, type: 2}
+  _enemyFactory: {fileID: 1793477461}
+  _enemyManager: {fileID: 1793477465}
+  _spawnIntervals:
+  - _startIntervalSeconds: 0
+    _endIntervalSecondsExclusive: 30
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 10
+  _enemySpawnPoints:
+  - {fileID: 1918735472947948875}
+  - {fileID: 378060407}
+  - {fileID: 1204515355}
+  - {fileID: 1809806013}
+--- !u!114 &1793477465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793477459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17dd595b1ecaef14a8a38b268cf60dcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
+  _enemyFactory: {fileID: 1793477461}
 --- !u!1001 &1809806012
 PrefabInstance:
   m_ObjectHideFlags: 0
