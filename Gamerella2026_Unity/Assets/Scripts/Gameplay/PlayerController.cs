@@ -1,6 +1,5 @@
 using System;
 using DG.Tweening;
-using FMOD.Studio;
 using FMODUnity;
 using ProphetAR;
 using UnityEngine;
@@ -96,7 +95,7 @@ public class PlayerController : MonoBehaviour
     
     private readonly Collider2D[] _enemiesInAttackRange = new Collider2D[MaxEnemiesDetectedInAttackRange];
 
-    private int _numTokens;
+    private int _numTokens = 50;
     
     private float _timeOfLastAttack;
     
