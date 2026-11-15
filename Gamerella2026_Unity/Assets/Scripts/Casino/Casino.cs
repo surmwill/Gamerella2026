@@ -8,12 +8,22 @@ public class Casino : MonoBehaviour
     public int moneyAmount = 50;
     public int betAmount = 5;
 
-    public GameObject[] dealtCard;
+    public int lootBoxChance = 50;
 
-    public int refCard;
 
-    public int cardColorGenerate;
-    public int cardGenerate;
+    [SerializeField] Sprite[] cards;
+
+    [SerializeField] GameObject guessCard;
+    private Sprite guessCardSprite;
+
+    [SerializeField] GameObject refCard;
+    private Sprite refCardSprite;
+
+    private int cardGenerate;
+
+    [SerializeField]private int guessCardValue;
+    [SerializeField]private int refCardValue;
+
     
 
     [SerializeField] private TextMeshProUGUI moneyText;
@@ -22,6 +32,24 @@ public class Casino : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Generate the first ref card
+        cardGenerate = Random.Range(0,cards.Length);
+        Debug.Log(cardGenerate);
+
+        refCardSprite = cards[cardGenerate];
+        Debug.Log(refCardSprite);
+
+        refCard.GetComponent<Image>().sprite = refCardSprite;
+
+        string spriteName = refCardSprite.name;
+
+        string[] parts = spriteName.Split('_');
+
+        refCardValue = int.Parse(parts[1]);
+
+        Debug.Log(refCardValue);
+
+        // set money and bet
         moneyText.SetText(moneyAmount.ToString());
         betText.SetText(betAmount.ToString());
     }
@@ -67,30 +95,65 @@ public class Casino : MonoBehaviour
 
     void BetHigh()
     {
-        Debug.Log("High");
         FlipCard();
+
+        if(guessCardValue > refCardValue)
+        {
+            Debug.Log("You win");
+        }
+
+        else if(guessCardValue == refCardValue)
+        {
+            Debug.Log("Draw");
+        }
+
+        else
+        {
+            Debug.Log("You loose");
+        }
     }
+
     void BetLow()
     {
-        Debug.Log("Low");
         FlipCard();
+
+        if(guessCardValue > refCardValue)
+        {
+            Debug.Log("You win");
+        }
+
+        else if(guessCardValue == refCardValue)
+        {
+            Debug.Log("Draw");
+        }
+
+        else
+        {
+            Debug.Log("You loose");
+        }
     }
 
     void FlipCard()
     {
-        cardColorGenerate = Random.Range(0,3);
-        Debug.Log(cardColorGenerate);
+        cardGenerate = Random.Range(0,cards.Length);
+        //Debug.Log(cardGenerate);
 
-        cardGenerate = Random.Range(1,13);
-        Debug.Log(cardGenerate);
+        guessCardSprite = cards[cardGenerate];
+        //Debug.Log(guessCardSprite);
 
-        for ( int i = 0; i< dealtCard.Length; i++)
-        {
-            dealtCard[i].SetActive(false);
-        }
-        
-        dealtCard[cardGenerate].SetActive(true);
+        guessCard.GetComponent<Image>().sprite = guessCardSprite;
+
+
+        string spriteName = guessCardSprite.name;
+
+        string[] parts = spriteName.Split('_');
+
+        guessCardValue = int.Parse(parts[1]);
+
+        Debug.Log(guessCardValue);
     }
+
+
 
 
     void UpdateMoney()
