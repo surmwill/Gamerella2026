@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -24,7 +25,7 @@ public class EnemyController : MonoBehaviour
     
     private float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
 
-    private PlayerController Player => Game.Instance.PlayerController;
+    private PlayerController Player => Game.Instance.Player;
     
     public void OnSpawned()
     {

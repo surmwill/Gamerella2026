@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
         }
     }
     
-    public PlayerController PlayerController => _playerController;
+    public PlayerController Player => _playerController;
 
     public EnemyManager EnemyManager => _enemyManager;
 

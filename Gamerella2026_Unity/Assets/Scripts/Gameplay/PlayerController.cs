@@ -14,6 +14,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float _baseAttacksPerSecond = 0.1f;
+
+    [SerializeField]
+    private float _baseHealth = 100f;
+    
+    public float Health { get; private set; }
+    
+    public bool CanAttack => Game.Instance.ElapsedTimeSeconds - _timeSinceLastAttack >= AttacksPerSecond;
     
     // Note: multiplicative
     private float ScaleVelocity => _baseScaleVelocity * Game.Instance.GameModifiers.ExtraScalePlayerVelocity;
@@ -22,8 +29,20 @@ public class PlayerController : MonoBehaviour
 
     private float AttacksPerSecond => _baseAttacksPerSecond + Game.Instance.GameModifiers.ExtraPlayerAttackSpeed;
     
-    private Vector2 _moveInput;
+    private float _timeSinceLastAttack = 0f;
     
+    private Vector2 _moveInput;
+
+    private void Awake()
+    {
+        Health = _baseHealth;
+    }
+    
+    private void FixedUpdate()
+    {
+        _playerRigidbody.linearVelocity = _moveInput * ScaleVelocity;
+    }
+
     private void Update()
     {
         HandleMovement();
@@ -55,13 +74,28 @@ public class PlayerController : MonoBehaviour
         _moveInput = new Vector2(moveX, moveY).normalized;
     }
 
+    public void TakeDamage(int damage)
+    {
+        Health = Mathf.Max(Health - damage, 0);
+        if (Health <= 0)
+        {
+            OnDie();
+        }
+    }
+
+    private void OnDie()
+    {
+        // Animation?
+        // End game?
+    }
+
     private void AttackClosestEnemy()
     {
         
     }
 
-    private void FixedUpdate()
+    private void AttackEnemy(EnemyController enemy)
     {
-        _playerRigidbody.linearVelocity = _moveInput * ScaleVelocity;
+        
     }
 }
