@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameModifiers : MonoBehaviour
@@ -12,7 +13,7 @@ public class GameModifiers : MonoBehaviour
     
     public float ExtraEnemyDamage { get; set; }
     
-    public float ExtraPlayerAttackSpeed { get; set; }
+    public float ExtraPlayerAttacksPerSecond { get; set; }
     
     /// <summary>
     /// Apply a modifier to everything in the game
@@ -21,6 +22,7 @@ public class GameModifiers : MonoBehaviour
     {
         switch (modifierType)
         {
+            // ex: 1.5X -> 1.6X -> 1.7X faster
             case ModifierType.PlayerMoveFaster:
                 ExtraScalePlayerVelocity += modifierValue;
                 break;
@@ -30,12 +32,15 @@ public class GameModifiers : MonoBehaviour
                 break;
             
             case ModifierType.PlayerMoreDamage:
+                ExtraPlayerDamage += modifierValue;
                 break;
             
             case ModifierType.EnemyMoreDamage:
+                ExtraEnemyDamage += modifierValue;
                 break;
             
             case ModifierType.PlayerAttackFaster:
+                ExtraPlayerAttacksPerSecond += modifierValue;
                 break;
         }
     }
@@ -46,7 +51,7 @@ public class GameModifiers : MonoBehaviour
         PlayerMoreDamage = 1,
         PlayerMoveFaster = 2,
         
-        EnemyAttackFaster = 10,
+        // EnemyAttackFaster = 10, // Enemies don't attack, just run into you
         EnemyMoreDamage = 11,
         EnemyMoveFaster = 12,
     }

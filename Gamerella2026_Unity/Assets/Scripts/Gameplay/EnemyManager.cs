@@ -11,14 +11,21 @@ public class EnemyManager : MonoBehaviour
 
     public HashSet<EnemyController> Enemies { get; private set; }
 
+    public Dictionary<Collider2D, EnemyController> EnemiesByCollider { get; private set; }
+
     private void Awake()
     {
         Enemies = new(_enemyFactory.NumEnemiesInPool);
+        EnemiesByCollider = new(_enemyFactory.NumEnemiesInPool);
     }
     
     public void RegisterEnemy(EnemyController enemy)
     {
-        if (!Enemies.Add(enemy))
+        if (Enemies.Add(enemy))
+        {
+            EnemiesByCollider[enemy.Collider] = enemy;
+        }
+        else
         {
             Debug.LogWarning($"Already registered enemy: {enemy.name}");
         }
@@ -28,7 +35,8 @@ public class EnemyManager : MonoBehaviour
     {
         if (Enemies.Remove(enemy))
         {
-            _enemyFactory.ReturnEnemyToPool(enemy);   
+            EnemiesByCollider.Remove(enemy.Collider);
+            _enemyFactory.ReturnEnemyToPool(enemy);
         }
         else
         {

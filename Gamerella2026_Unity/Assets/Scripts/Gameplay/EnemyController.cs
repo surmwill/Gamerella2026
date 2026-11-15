@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -8,36 +9,57 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private Rigidbody2D _enemyRigidbody = null;
+
+    [SerializeField]
+    private Collider2D _collider = null;
+    
+    [SerializeField]
+    private float _knockbackLinearDampening = 0.15f;
     
     [Header("Stats")]
+    [SerializeField]
+    private float _baseHealth = 100f;
+    
     [SerializeField]
     private float _baseScaleVelocity = 10f;
     
     [SerializeField]
     private int _baseAttackDamage = 10;
+    
+    public float Health { get; private set; }
 
-    [SerializeField]
-    private float _baseAttacksPerSecond = 0.1f;
-
+    public float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
+    
+    public Collider2D Collider => _collider;
+    
     public float ExternalScaleVelocity { get; set; } = 1f;
     
     private float ScaleVelocity => _baseScaleVelocity * ExternalScaleVelocity;
-    
-    private float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
 
     private PlayerController Player => Game.Instance.Player;
+
+    private Sequence _knockedBackSequence = null;
     
     public void OnSpawned()
     {
+        Health = _baseHealth;
         FacePlayer();
     }
 
     private void FixedUpdate()
     {
-        Vector3 toPlayer = (Player.transform.position - transform.position).normalized;
-        _enemyRigidbody.linearVelocity = toPlayer * ScaleVelocity;
+        if (!_knockedBackSequence?.IsActive() ?? true)
+        {
+            DoMovement();
+        }
         
         FacePlayer();
+    }
+
+    private void DoMovement()
+    {
+        Vector3 toPlayer = (Player.transform.position - transform.position).normalized;
+        _enemyRigidbody.linearVelocity = toPlayer * ScaleVelocity; 
     }
 
     private void FacePlayer()
@@ -45,12 +67,48 @@ public class EnemyController : MonoBehaviour
         _spriteRenderer.flipX = Player.transform.position.x > transform.position.x;
     }
 
-    public void OnAttack()
+    public void OnAttacked(PlayerController player)
     {
+        Health = Mathf.Max(Health - player.AttackDamage, 0f);
+        if (Health <= 0f)
+        {
+            OnKilled();
+            return;
+        }
+        
+        ApplyKnockback(player.transform.position, player.KnockbackForce, player.KnockbackDuration);
     }
 
-    public void OnKilled()
+    private void OnKilled()
     {
+        _knockedBackSequence?.Kill();
         Game.Instance.EnemySpawner.CleanupEnemy(this);
+    }
+    
+    /// <summary>
+    /// Applies knockback via physics impulse, respecting walls and map bounds.
+    /// </summary>
+    private void ApplyKnockback(Vector3 damageSourcePosition, float knockbackForce, float knockbackDuration)
+    {
+        Vector3 currentPos = transform.position;
+        Vector3 rawDirection = (currentPos - damageSourcePosition).normalized;
+        
+        // Switch to using force
+        _enemyRigidbody.linearVelocity = Vector3.zero;
+        _enemyRigidbody.linearDamping = _knockbackLinearDampening;
+        _enemyRigidbody.AddForce(rawDirection * knockbackForce, ForceMode2D.Impulse);
+        
+        // Switch back to using linear velocity
+        _knockedBackSequence = DOTween.Sequence()
+            .AppendInterval(knockbackDuration)
+            .OnKill(() => _enemyRigidbody.linearDamping = 0f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject == Game.Instance.Player.gameObject)
+        {
+            Game.Instance.Player.OnAttacked(this);
+        }
     }
 }

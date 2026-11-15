@@ -18,9 +18,6 @@ public class WallController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _botWall = null;
     
-    [SerializeField]
-    private SpriteRenderer _wallPrefab = null;
-
     private void Update()
     {
         if (Application.isPlaying)
@@ -37,7 +34,7 @@ public class WallController : MonoBehaviour
         
         if (_rightWall != null)
         {
-            _rightWall.transform.position = new Vector3(_floorSize.x * 0.5f + _leftWall.size.x * 0.5f, 0f, 0f);
+            _rightWall.transform.position = new Vector3(_floorSize.x * 0.5f + _rightWall.size.x * 0.5f, 0f, 0f);
         }
 
         if (_topWall != null)

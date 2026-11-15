@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody2D _playerRigidbody = null;
+
+    [SerializeField]
+    private CircleCollider2D _attackArea = null;
     
     [Header("Stats")]
     [SerializeField]
@@ -17,19 +21,33 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float _baseHealth = 100f;
+
+    [SerializeField]
+    private float _knockbackForce = 10f;
+    
+    [SerializeField]
+    private float _knockbackDuration = 0.25f;
     
     public float Health { get; private set; }
+
+    public float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage;
     
-    public bool CanAttack => Game.Instance.ElapsedTimeSeconds - _timeSinceLastAttack >= AttacksPerSecond;
+    public float KnockbackForce => _knockbackForce;
+    
+    public float KnockbackDuration => _knockbackDuration;
+
+    public bool CanAttack => Game.Instance.ElapsedTimeSeconds - _timeOfLastAttack >= AttackCooldownSeconds;
     
     // Note: multiplicative
     private float ScaleVelocity => _baseScaleVelocity * Game.Instance.GameModifiers.ExtraScalePlayerVelocity;
-
-    private float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage;
-
-    private float AttacksPerSecond => _baseAttacksPerSecond + Game.Instance.GameModifiers.ExtraPlayerAttackSpeed;
     
-    private float _timeSinceLastAttack = 0f;
+    private float AttackCooldownSeconds => 1f / (_baseAttacksPerSecond + Game.Instance.GameModifiers.ExtraPlayerAttacksPerSecond);
+
+    private const int MaxEnemiesDetectedInAttackRange = 10; 
+    
+    private readonly Collider2D[] _enemiesInAttackRange = new Collider2D[MaxEnemiesDetectedInAttackRange];
+    
+    private float _timeOfLastAttack;
     
     private Vector2 _moveInput;
 
@@ -40,6 +58,11 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
+        if (CanAttack)
+        {
+            TryAttackClosestEnemy();
+        }
+        
         _playerRigidbody.linearVelocity = _moveInput * ScaleVelocity;
     }
 
@@ -74,28 +97,64 @@ public class PlayerController : MonoBehaviour
         _moveInput = new Vector2(moveX, moveY).normalized;
     }
 
-    public void TakeDamage(int damage)
+    public void OnAttacked(EnemyController enemy)
     {
-        Health = Mathf.Max(Health - damage, 0);
+        // Deflect if we can attack
+        if (CanAttack)
+        {
+            AttackEnemy(enemy);
+            return;
+        }
+        
+        // Otherwise we take the hit
+        Health = Mathf.Max(Health - enemy.AttackDamage, 0);
         if (Health <= 0)
         {
             OnDie();
         }
     }
 
-    private void OnDie()
+    private bool TryAttackClosestEnemy()
     {
-        // Animation?
-        // End game?
-    }
-
-    private void AttackClosestEnemy()
-    {
+        int numEnemies = _attackArea.GetOverlappingColliders(_enemiesInAttackRange, LayerMask.GetMask(LayerNames.Enemy));
         
+        EnemyController closestEnemy = null;
+        float? closestSqrDistance = null;
+        
+        for (int i = 0; i < numEnemies; i++)
+        {
+            if (!Game.Instance.EnemyManager.EnemiesByCollider.TryGetValue(_enemiesInAttackRange[i], out EnemyController enemy))
+            {
+                Debug.LogWarning("Collision with unregistered enemy");
+                continue;
+            }
+
+            float sqrDistance = (enemy.transform.position - transform.position).sqrMagnitude;
+            if (!closestSqrDistance.HasValue || sqrDistance < closestSqrDistance.Value)
+            {
+                closestSqrDistance = sqrDistance;
+                closestEnemy = enemy;
+            }
+        }
+
+        if (closestSqrDistance.HasValue)
+        {
+            AttackEnemy(closestEnemy);
+            return true;
+        }
+
+        return false;
     }
 
     private void AttackEnemy(EnemyController enemy)
     {
-        
+        enemy.OnAttacked(this);
+        _timeOfLastAttack = Game.Instance.ElapsedTimeSeconds;
+    }
+    
+    private void OnDie()
+    {
+        // Animation?
+        // End game?
     }
 }

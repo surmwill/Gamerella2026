@@ -589,7 +589,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 52.5
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.y
@@ -626,6 +626,14 @@ PrefabInstance:
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137534689984742967, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
+      propertyPath: m_Size.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137534689984742967, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
+      propertyPath: m_Size.y
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 3734379741979945792, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_Name
@@ -1115,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -52.5
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1155,7 +1163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3137534689984742967, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_Size.y
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3734379741979945792, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_Name
@@ -1416,7 +1424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 52.5
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1456,7 +1464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3137534689984742967, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_Size.y
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3734379741979945792, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_Name
@@ -1610,7 +1618,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesController
   _enemiesPool: {fileID: 1094237241}
-  _enemySpawnPoints: []
   _enemyPrefab: {fileID: 5217676398875167500, guid: 018cf8e83e948bc449be3449001ef5ec, type: 3}
   _numEnemiesInPool: 5
 --- !u!114 &1793477462
@@ -1626,7 +1633,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game
   _playerController: {fileID: 1831863754}
-  _enemyFactor: {fileID: 0}
+  _enemyManager: {fileID: 0}
+  _enemySpawner: {fileID: 0}
+  _gameModifiers: {fileID: 0}
 --- !u!1001 &1809806012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1900,7 +1909,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -52.5
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1937,6 +1946,14 @@ PrefabInstance:
     - target: {fileID: 2887609755550349845, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137534689984742967, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
+      propertyPath: m_Size.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137534689984742967, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
+      propertyPath: m_Size.y
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 3734379741979945792, guid: 0fbd40a78c03c87449e7c78f81452700, type: 3}
       propertyPath: m_Name
