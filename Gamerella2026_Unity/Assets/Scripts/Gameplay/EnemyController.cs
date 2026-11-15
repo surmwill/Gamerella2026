@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
     
     public Collider2D Collider => _collider;
 
-    private float ScaleVelocity => _baseStats.BaseScaleVelocity * Game.Instance.GameModifiers.ExtraScaleEnemyVelocity;
+    private float ScaleVelocity => _baseStats.BaseScaleVelocity * Game.Instance.GameModifiers.ExtraScaleEnemyVelocity * (Player.IsDead ? 0f: 1f);
 
     private PlayerController Player => Game.Instance.Player;
         

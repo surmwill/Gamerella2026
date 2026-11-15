@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using ProphetAR;
 using UnityEngine;
 
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
         get => _health; 
         private set => _health = value;
     }
+    
+    public bool IsDead { get; set; } = false;
 
     public int BaseHealth => _baseHealth;
     
@@ -78,6 +81,7 @@ public class PlayerController : MonoBehaviour
     private const int MaxEnemiesDetectedInAttackRange = 10; 
     
     private static readonly int AttackStateHash = Animator.StringToHash("Attack");
+    private static readonly int DeathStateHash = Animator.StringToHash("Dead-GameOver");
     
     private readonly Collider2D[] _enemiesInAttackRange = new Collider2D[MaxEnemiesDetectedInAttackRange];
 
@@ -94,6 +98,11 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
+        if (IsDead)
+        {
+            return;
+        }
+        
         if (CanAttack)
         {
             TryAttackClosestEnemy();
@@ -110,7 +119,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
+        if (!IsDead)
+        {
+            HandleMovement();   
+        }
     }
 
     private void HandleMovement()
@@ -141,6 +153,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttackedByEnemy(EnemyController enemy)
     {
+        if (IsDead)
+        {
+            return;
+        }
+        
         // Deflect if we can attack
         if (CanAttack)
         {
@@ -201,6 +218,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnDie()
     {
-        Game.Instance.EndGame();
+        foreach (Collider collider in GetComponentsInChildren<Collider>())
+        {
+            collider.enabled = false;
+        }
+
+        IsDead = true;
+        
+        _playerAnimator.Play(DeathStateHash);
+        DOTween.Sequence().AppendInterval(2.0f).AppendCallback(Game.Instance.EndGame);
     }
 }
