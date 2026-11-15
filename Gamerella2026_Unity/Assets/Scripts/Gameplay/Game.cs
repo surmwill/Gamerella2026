@@ -34,8 +34,13 @@ public class Game : MonoBehaviour
     
     [SerializeField] 
     private EventReference _soundtrackReference;
+    
+    [SerializeField] 
+    private EventReference _ambienceReference;
 
     private EventInstance _soundtrackInstance;
+    
+    private EventInstance _ambienceInstance;
     
     public static Game Instance
     {
@@ -87,6 +92,9 @@ public class Game : MonoBehaviour
         _soundtrackInstance.stop(STOP_MODE.ALLOWFADEOUT);
         _soundtrackInstance.release();
         
+        _ambienceInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        _ambienceInstance.release();
+        
         Destroy(gameObject);
         _onEndGame?.Invoke(new EndGameData(ElapsedTimeSeconds));
     }
@@ -105,8 +113,12 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _gameStartedSeconds = Time.realtimeSinceStartup;
+        
         _soundtrackInstance = RuntimeManager.CreateInstance(_soundtrackReference);
         _soundtrackInstance.start();
+        
+        _ambienceInstance = RuntimeManager.CreateInstance(_ambienceReference);
+        _ambienceInstance.start();
     }
 
     private void Update()

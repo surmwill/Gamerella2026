@@ -872,6 +872,13 @@ MonoBehaviour:
       Data3: 1180319105
       Data4: -1357952137
     Path: event:/Music/Music_main
+  _ambienceReference:
+    Guid:
+      Data1: -1517163644
+      Data2: 1100559191
+      Data3: 1958856109
+      Data4: -1411870980
+    Path: event:/Ambiances/Ambience_Main
 --- !u!114 &4313577755373785883
 MonoBehaviour:
   m_ObjectHideFlags: 0
