@@ -717,7 +717,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471109026}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1728,8 +1728,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Casino
   moneyAmount: 75
-  betAmount: 8
-  lootBoxChance: 50
+  betAmount: 5
+  lootBoxChance: 10
+  winProbability: 0
+  MaxLootBoxChance: 100
+  MaxBet: 1000
+  MaxChanceIncrease: 15
+  RiskPower: 2
   cards:
   - {fileID: 3196221610730321274, guid: eca883cc54af73742bb8d1b12b4b05a8, type: 3}
   - {fileID: 5845349385316874935, guid: 85b6d27efd3b1074989e7600d4185048, type: 3}

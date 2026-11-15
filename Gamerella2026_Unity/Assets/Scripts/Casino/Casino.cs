@@ -8,7 +8,17 @@ public class Casino : MonoBehaviour
     public int moneyAmount = 75;
     public int betAmount = 6;
 
-    public int lootBoxChance = 50;
+    public float lootBoxChance = 10f;
+    [SerializeField] float winProbability;
+
+    [SerializeField] float MaxLootBoxChance = 100f;
+    [SerializeField] float MinLootBoxChance = 0f;
+    [SerializeField] float MaxBet = 1000f;
+
+    [SerializeField] float MaxChanceIncrease = 15f;
+    [SerializeField] float MaxChanceDecrease = 10f;
+    [SerializeField] float RiskPower = 2f;
+
 
     [SerializeField] Sprite[] cards;
 
@@ -31,6 +41,12 @@ public class Casino : MonoBehaviour
     [SerializeField] private TextMeshProUGUI betText;
 
     [SerializeField] private TextMeshProUGUI lootText;
+
+    public enum BetDirection
+    {
+        Higher,
+        Lower
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -120,12 +136,13 @@ public class Casino : MonoBehaviour
 
             if(guessCardValue > refCardValue)
             {
+                float winProbability = CalculateWinProbability(refCardValue,BetDirection.Higher);
                 WinBet();
             }
 
             else if(guessCardValue == refCardValue)
             {
-                Debug.Log("Draw");
+                Draw();
             }
 
             else
@@ -143,12 +160,13 @@ public class Casino : MonoBehaviour
 
             if(guessCardValue < refCardValue)
             {
+                float winProbability = CalculateWinProbability(refCardValue,BetDirection.Lower);
                 WinBet();
             }
 
             else if(guessCardValue == refCardValue)
             {
-                Debug.Log("Draw");
+                Draw();
             }
 
             else
@@ -158,21 +176,95 @@ public class Casino : MonoBehaviour
         }
     }
 
+    public float CalculateWinProbability(int currentCard, BetDirection direction)
+    {
+        int totalCards = cards.Length;
+        int remainingCards = totalCards - 1;
+
+        int winningCards = direction == BetDirection.Higher
+            ? (13 - currentCard) * 4
+            : (currentCard - 1) * 4;
+
+        return (float)winningCards / remainingCards;
+    }
+
+    public void UpdateLootBoxChance(float winProbability, float betAmount)
+    {
+        // Convert percentage to a value between 0 and 1
+        float probability = Mathf.Clamp01(winProbability);
+    
+        // Calculate risk
+        float risk = 1f - probability;
+    
+        // Apply nonlinear risk scaling
+        float riskReward = Mathf.Pow(risk, RiskPower);
+    
+        // Normalize bet amount
+        float betFactor = Mathf.Clamp01(betAmount / MaxBet);
+    
+        // Calculate LootBoxChance increase
+        float chanceIncrease = MaxChanceIncrease * riskReward * betFactor;
+        //float chanceDecrease = MaxChanceDecrease * riskReward * betFactor;
+    
+        // Update and clamp LootBoxChance
+        lootBoxChance = Mathf.Clamp(
+            lootBoxChance + chanceIncrease,
+            0f,
+            MaxLootBoxChance
+        );
+    }
+
     void WinBet()
     {
         Debug.Log("You win");
 
-        //float loot = betAmount;
-        //Debug.Log("Loot + " + loot);
+        float probability = Mathf.Clamp01(winProbability);
+        float risk = 1f - probability;
+        float riskReward = Mathf.Pow(risk, RiskPower);
+        float betFactor = Mathf.Clamp01(betAmount / MaxBet);
+    
+        // Calculate LootBoxChance increase
+        float chanceIncrease = MaxChanceIncrease * riskReward * betFactor;
+        //float chanceDecrease = MaxChanceDecrease * riskReward * betFactor;
+    
+        // Update and clamp LootBoxChance
+        lootBoxChance = Mathf.Clamp(
+            lootBoxChance + chanceIncrease,
+            MinLootBoxChance,
+            MaxLootBoxChance
+        );
 
-        lootBoxChance += betAmount;
+        //lootBoxChance += betAmount;
         lootText.SetText(lootBoxChance.ToString());
+    }
+
+    void Draw()
+    {
+        Debug.Log("Draw");
+        betAmount = 0;
+        BetMore();
     }
 
     void LooseBet()
     {
         Debug.Log("You loose");
-        lootBoxChance -= betAmount;
+
+        float probability = Mathf.Clamp01(winProbability);
+        float risk = 1f - probability;
+        float riskReward = Mathf.Pow(risk, RiskPower);
+        float betFactor = Mathf.Clamp01(betAmount / MaxBet);
+    
+        // Calculate LootBoxChance increase
+        //float chanceIncrease = MaxChanceIncrease * riskReward * betFactor;
+        float chanceDecrease = MaxChanceDecrease * riskReward * betFactor;
+    
+        // Update and clamp LootBoxChance
+        lootBoxChance = Mathf.Clamp(
+            lootBoxChance + chanceDecrease,
+            MinLootBoxChance,
+            MaxLootBoxChance
+        );
+        //lootBoxChance -= betAmount;
         lootText.SetText(lootBoxChance.ToString());
 
         betAmount = 0;
@@ -216,4 +308,6 @@ public class Casino : MonoBehaviour
         moneyText.SetText(moneyAmount.ToString());
         betText.SetText(betAmount.ToString());
     }
+
+    
 }
