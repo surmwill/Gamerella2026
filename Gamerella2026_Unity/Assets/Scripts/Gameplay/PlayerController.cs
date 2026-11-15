@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     public int BaseHealth => _baseHealth;
     
-    public float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage;
+    public float AttackDamage => Mathf.Max(_baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage, 1f);
     
     public float KnockbackForce => _knockbackForce;
     

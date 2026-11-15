@@ -13,5 +13,13 @@ MonoBehaviour:
   m_Name: LootboxConfigurations
   m_EditorClassIdentifier: Assembly-CSharp::LootBoxConfigurationSO
   _modifiers:
+  - _type: 0
+    _value: 1
+  - _type: 1
+    _value: 10
   - _type: 2
-    _value: 2
+    _value: 0.15
+  - _type: 11
+    _value: 5
+  - _type: 12
+    _value: 0.15

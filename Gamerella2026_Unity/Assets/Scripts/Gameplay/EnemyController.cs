@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
         private set => _health = value;
     }
 
-    public int AttackDamage => _baseStats.BaseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
+    public int AttackDamage => Mathf.Max(_baseStats.BaseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage, 1);
     
     public Collider2D Collider => _collider;
     
@@ -108,12 +108,13 @@ public class EnemyController : MonoBehaviour
 
     public void ShowHitText(string text)
     {
-        Debug.Log("SHOWING text " + text);
         _hitTestSequence?.Kill();
         
         TMP_Text hitText = Game.Instance.HitTextPool.FetchTextFromPool();
         hitText.transform.SetParent(Game.Instance.HitTestTransform);
-        hitText.transform.position = transform.position.WithY(transform.position.y + _hitTextOffsetY);
+        
+        // Ensure it's rendered on top
+        hitText.transform.position = transform.position.WithY(transform.position.y + _hitTextOffsetY).WithZ(-0.003f);
 
         hitText.text = text;
         hitText.alpha = 1.0f;
@@ -122,7 +123,10 @@ public class EnemyController : MonoBehaviour
             .Append(hitText.DOFade(0f, _hitTextDuration))
             .OnKill(() =>
             {
-                Game.Instance.HitTextPool.ReturnTextToPool(hitText);
+                if (Game.Instance.HitTextPool != null)
+                {
+                    Game.Instance.HitTextPool.ReturnTextToPool(hitText);   
+                }
             });
     }
 
@@ -131,11 +135,10 @@ public class EnemyController : MonoBehaviour
         Player.NumTokens += _baseStats.TokensDropped;
         
         _knockedBackSequence?.Kill();
-        _hitTestSequence?.Kill();
         
         Game.Instance.EnemySpawner.CleanupEnemy(this);
 
-        if (Random.value < Lootbox.LootboxDropChance)
+        if (Random.value <= Lootbox.LootboxDropChance)
         {
             DOTween.Sequence().AppendInterval(1.5f).OnComplete(() =>
             {
