@@ -4,43 +4,43 @@ using UnityEngine;
 public class GameModifiers : MonoBehaviour
 {
     // Multiplicative with the player's velocity
-    public float ExtraScalePlayerVelocity { get; set; }
+    public float ExtraScalePlayerVelocity { get; set; } = 1f;
     
     // Multiplicative with the enemy's velocity
-    public float ExtraScaleEnemyVelocity { get; set; }
+    public float ExtraScaleEnemyVelocity { get; set; } = 1f;
     
-    public float ExtraPlayerDamage { get; set; }
+    public int ExtraPlayerDamage { get; set; }
     
-    public float ExtraEnemyDamage { get; set; }
+    public int ExtraEnemyDamage { get; set; }
     
-    public float ExtraPlayerAttacksPerSecond { get; set; }
+    public int ExtraPlayerAttacksPerSecond { get; set; }
     
     /// <summary>
     /// Apply a modifier to everything in the game
     /// </summary>
-    public void ApplyModifier(ModifierType modifierType, float modifierValue)
+    public void ApplyModifier(ModifierType modifierType, object modifierValue)
     {
         switch (modifierType)
         {
             // ex: 1.5X -> 1.6X -> 1.7X faster
             case ModifierType.PlayerMoveFaster:
-                ExtraScalePlayerVelocity += modifierValue;
+                ExtraScalePlayerVelocity += (float) modifierValue;
                 break;
             
             case ModifierType.EnemyMoveFaster:
-                ExtraScaleEnemyVelocity += modifierValue;
+                ExtraScaleEnemyVelocity += (float) modifierValue;
                 break;
             
             case ModifierType.PlayerMoreDamage:
-                ExtraPlayerDamage += modifierValue;
+                ExtraPlayerDamage += (int) modifierValue;
                 break;
             
             case ModifierType.EnemyMoreDamage:
-                ExtraEnemyDamage += modifierValue;
+                ExtraEnemyDamage += (int) modifierValue;
                 break;
             
             case ModifierType.PlayerAttackFaster:
-                ExtraPlayerAttacksPerSecond += modifierValue;
+                ExtraPlayerAttacksPerSecond += (int) modifierValue;
                 break;
         }
     }

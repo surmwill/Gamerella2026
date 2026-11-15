@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     private CircleCollider2D _attackArea = null;
     
     [Header("Stats")]
+    [ReadOnly]
+    [SerializeField]
+    private int _health = 100;
+    
     [SerializeField]
     private float _baseScaleVelocity = 20f;
     
@@ -20,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private float _baseAttacksPerSecond = 0.1f;
 
     [SerializeField]
-    private float _baseHealth = 100f;
+    private int _baseHealth = 100;
 
     [SerializeField]
     private float _knockbackForce = 10f;
@@ -42,8 +46,12 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
-    public float Health { get; private set; }
+
+    public int Health
+    {
+        get => _health; 
+        private set => _health = value;
+    }
     
     public float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage;
     
@@ -112,6 +120,7 @@ public class PlayerController : MonoBehaviour
         }
         
         _moveInput = new Vector2(moveX, moveY).normalized;
+        Debug.Log(_moveInput);
     }
 
     public void OnAttacked(EnemyController enemy)
@@ -124,7 +133,7 @@ public class PlayerController : MonoBehaviour
         }
         
         // Otherwise we take the hit
-        Health = Mathf.Max(Health - enemy.AttackDamage, 0);
+        Health = Math.Max(Health - enemy.AttackDamage, 0);
         if (Health <= 0)
         {
             OnDie();
@@ -168,7 +177,12 @@ public class PlayerController : MonoBehaviour
         enemy.OnAttacked(this);
         _timeOfLastAttack = Game.Instance.ElapsedTimeSeconds;
     }
-    
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other.gameObject.name);
+    }
+
     private void OnDie()
     {
         // Animation?

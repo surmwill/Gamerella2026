@@ -15,12 +15,13 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField]
     private float _knockbackLinearDampening = 0.15f;
-
+    
+    [Header("Stats")]
     [SerializeField]
     [ReadOnly]
     private float _health;
+
     
-    [Header("Stats")]
     [SerializeField]
     private EnemyBaseStats _baseStats = null;
 
@@ -30,7 +31,7 @@ public class EnemyController : MonoBehaviour
         private set => _health = value;
     }
 
-    public float AttackDamage => _baseStats.BaseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
+    public int AttackDamage => _baseStats.BaseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage;
     
     public Collider2D Collider => _collider;
     
