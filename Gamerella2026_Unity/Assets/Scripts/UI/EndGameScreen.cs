@@ -60,7 +60,7 @@ public class EndGameScreen : MonoBehaviour
         _mainMenuScreen.SetActive(true);
     }
 
-    private static string GetFormattedTimeString(float timeSurvivedSeconds)
+    public static string GetFormattedTimeString(float timeSurvivedSeconds)
     {
         return TimeSpan.FromSeconds(timeSurvivedSeconds).ToString(@"mm\:ss");
     }

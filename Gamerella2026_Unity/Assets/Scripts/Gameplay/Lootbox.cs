@@ -19,7 +19,7 @@ public class Lootbox : MonoBehaviour
             return;
         }
         
-        // Check positive or negative effect
+        // TODO: get percent chance
         bool isPositiveEffect = true;
 
         ModifierValue modifier = _lootBoxConfiguration.Modifiers[Random.Range(0, _lootBoxConfiguration.Modifiers.Count)];

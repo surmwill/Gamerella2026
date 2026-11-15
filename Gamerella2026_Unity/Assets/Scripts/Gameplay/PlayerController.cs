@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
         get => _health; 
         private set => _health = value;
     }
+
+    public int BaseHealth => _baseHealth;
     
     public float AttackDamage => _baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage;
     

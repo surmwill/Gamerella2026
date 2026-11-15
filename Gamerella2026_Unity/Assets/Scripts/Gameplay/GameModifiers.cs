@@ -17,6 +17,28 @@ public class GameModifiers : MonoBehaviour
     
     [SerializeField]
     private int _extraPlayerAttacksPerSecond = 0;
+
+    public List<(ModifierType ModifierType, float ModifierValue)> LastModifiers { get; private set; } = new();
+
+    public static readonly Dictionary<ModifierType, string> GoodModifiersText = new()
+    {
+        [ModifierType.PlayerAttackSpeed] = "Increased Player Attack Speed",
+        [ModifierType.PlayerDamage] = "Increased Player Damage",
+        [ModifierType.PlayerMoveSpeed] = "Increased Player Move Speed",
+
+        [ModifierType.EnemyDamage] = "Reduced Enemy Damage",
+        [ModifierType.EnemyMoveSpeed] = "Reduced Enemy Move Speed",
+    };
+    
+    public static readonly Dictionary<ModifierType, string> BadModifiersText = new()
+    {
+        [ModifierType.PlayerAttackSpeed] = "Reduced Player Attack Speed",
+        [ModifierType.PlayerDamage] = "Reduced Player Damage",
+        [ModifierType.PlayerMoveSpeed] = "Reduced Player Move Speed",
+
+        [ModifierType.EnemyDamage] = "Increased Enemy Damage",
+        [ModifierType.EnemyMoveSpeed] = "Increased Enemy Move Speed",
+    };
     
     // Multiplicative with the player's velocity
     public float ExtraScalePlayerVelocity
@@ -51,6 +73,8 @@ public class GameModifiers : MonoBehaviour
     /// </summary>
     public void ApplyModifier(ModifierType modifierType, float modifierValue)
     {
+        LastModifiers.Add((modifierType, modifierValue));
+        
         switch (modifierType)
         {
             // ex: 1.5X -> 1.6X -> 1.7X faster
