@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform _model = null;
 
+    [SerializeField]
+    private Animator _playerAnimator = null;
+    
     public event Action<int> OnPlayerTokensUpdated;
     
     public int NumTokens 
@@ -73,6 +76,8 @@ public class PlayerController : MonoBehaviour
     private float AttackCooldownSeconds => 1f / (_baseAttacksPerSecond + Game.Instance.GameModifiers.ExtraPlayerAttacksPerSecond);
 
     private const int MaxEnemiesDetectedInAttackRange = 10; 
+    
+    private static readonly int AttackStateHash = Animator.StringToHash("Attack");
     
     private readonly Collider2D[] _enemiesInAttackRange = new Collider2D[MaxEnemiesDetectedInAttackRange];
 
@@ -188,6 +193,8 @@ public class PlayerController : MonoBehaviour
 
     private void AttackEnemy(EnemyController enemy)
     {
+        _playerAnimator.Play(AttackStateHash);
+        
         enemy.OnAttackedByPlayer(this);
         _timeOfLastAttack = Game.Instance.ElapsedTimeSeconds;
     }

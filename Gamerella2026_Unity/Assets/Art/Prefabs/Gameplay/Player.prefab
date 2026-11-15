@@ -59,6 +59,7 @@ MonoBehaviour:
   _knockbackForce: 25
   _knockbackDuration: 1
   _model: {fileID: 1442746109015540789}
+  _playerAnimator: {fileID: 2058101081966719637}
 --- !u!50 &1369632976829333661
 Rigidbody2D:
   serializedVersion: 5
@@ -341,5 +342,10 @@ PrefabInstance:
 --- !u!4 &1442746109015540789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1240348423708565774, guid: 21197b56506742c4e9a7c32d9c8ef948, type: 3}
+  m_PrefabInstance: {fileID: 374699960185103675}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2058101081966719637 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1854616251047253934, guid: 21197b56506742c4e9a7c32d9c8ef948, type: 3}
   m_PrefabInstance: {fileID: 374699960185103675}
   m_PrefabAsset: {fileID: 0}
