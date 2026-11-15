@@ -47,7 +47,9 @@ public class EnemyConfigurationsSO : ScriptableObject, ISerializationCallbackRec
     public class EnemyPrefabConfiguration
     {
         [SerializeField]
-        private Sprite _sprite = null;
+        private Material _material = null;
+        
+        public Material Material => _material;
     }
     
     [Serializable]

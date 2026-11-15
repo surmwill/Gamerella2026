@@ -15,9 +15,41 @@ MonoBehaviour:
   _enemyConfigurations:
   - _enemyType: 0
     _prefabConfig:
-      _sprite: {fileID: 0}
+      _material: {fileID: 2100000, guid: db7df713b6eb8674699543b010f58e0d, type: 2}
+    _baseStats:
+      _baseHealth: 1
+      _baseScaleVelocity: 20
+      _baseAttackDamage: 1
+      _tokensDropped: 1
+  - _enemyType: 1
+    _prefabConfig:
+      _material: {fileID: 2100000, guid: 6369fd8d46dea8349a5356cc30656bc0, type: 2}
+    _baseStats:
+      _baseHealth: 5
+      _baseScaleVelocity: 20
+      _baseAttackDamage: 5
+      _tokensDropped: 5
+  - _enemyType: 2
+    _prefabConfig:
+      _material: {fileID: 2100000, guid: f0d9f88c69d4208479e7302a06d92e99, type: 2}
+    _baseStats:
+      _baseHealth: 25
+      _baseScaleVelocity: 20
+      _baseAttackDamage: 25
+      _tokensDropped: 25
+  - _enemyType: 3
+    _prefabConfig:
+      _material: {fileID: 2100000, guid: dd0fc3cb3c4214b48a2fb691ac487131, type: 2}
+    _baseStats:
+      _baseHealth: 50
+      _baseScaleVelocity: 20
+      _baseAttackDamage: 50
+      _tokensDropped: 50
+  - _enemyType: 4
+    _prefabConfig:
+      _material: {fileID: 2100000, guid: d1d48f4abde5c9f4e8a350d6a56ae381, type: 2}
     _baseStats:
       _baseHealth: 100
       _baseScaleVelocity: 20
-      _baseAttackDamage: 10
-      _tokensDropped: 1
+      _baseAttackDamage: 100
+      _tokensDropped: 100

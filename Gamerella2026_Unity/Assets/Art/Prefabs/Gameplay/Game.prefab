@@ -929,7 +929,47 @@ MonoBehaviour:
     _endIntervalSecondsExclusive: 30
     _spawnEnemyTypes:
     - _enemyType: 0
+      _numToSpawn: 15
+  - _startIntervalSeconds: 30
+    _endIntervalSecondsExclusive: 60
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 20
+    - _enemyType: 1
+      _numToSpawn: 5
+  - _startIntervalSeconds: 60
+    _endIntervalSecondsExclusive: 90
+    _spawnEnemyTypes:
+    - _enemyType: 0
       _numToSpawn: 30
+    - _enemyType: 1
+      _numToSpawn: 10
+    - _enemyType: 2
+      _numToSpawn: 5
+  - _startIntervalSeconds: 90
+    _endIntervalSecondsExclusive: 120
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 30
+    - _enemyType: 1
+      _numToSpawn: 15
+    - _enemyType: 2
+      _numToSpawn: 5
+    - _enemyType: 3
+      _numToSpawn: 3
+  - _startIntervalSeconds: 120
+    _endIntervalSecondsExclusive: 150
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 30
+    - _enemyType: 1
+      _numToSpawn: 30
+    - _enemyType: 2
+      _numToSpawn: 10
+    - _enemyType: 3
+      _numToSpawn: 5
+    - _enemyType: 4
+      _numToSpawn: 2
   _enemySpawnPoints:
   - {fileID: 109869249759261546}
   - {fileID: 2978661739151161575}

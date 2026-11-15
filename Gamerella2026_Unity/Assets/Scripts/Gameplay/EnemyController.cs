@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     private Lootbox _lootboxPrefab = null;
     
     [SerializeField]
+    private SkinnedMeshRenderer _enemyRenderer = null;
+    
+    [SerializeField]
     private float _knockbackLinearDampening = 0.15f;
 
     [SerializeField]
@@ -59,6 +62,8 @@ public class EnemyController : MonoBehaviour
     {
         _baseStats = enemyConfiguration.BaseStats;
         Health = enemyConfiguration.BaseStats.BaseHealth;
+
+        _enemyRenderer.material = enemyConfiguration.PrefabConfig.Material;
         
         FacePlayer();
     }
