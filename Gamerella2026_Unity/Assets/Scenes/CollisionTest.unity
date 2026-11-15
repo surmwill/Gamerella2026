@@ -1665,6 +1665,7 @@ MonoBehaviour:
   _enemyConfigurations: {fileID: 11400000, guid: 30aa87830525bab4886fd5bfb6c5b452, type: 2}
   _enemyFactory: {fileID: 1793477461}
   _enemyManager: {fileID: 1793477465}
+  _enemiesTransform: {fileID: 796546353}
   _spawnIntervals:
   - _startIntervalSeconds: 0
     _endIntervalSecondsExclusive: 30

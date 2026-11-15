@@ -21,6 +21,9 @@ public class EnemySpawner : MonoBehaviour
     private EnemyManager _enemyManager = null;
 
     [SerializeField]
+    private Transform _enemiesTransform = null;
+
+    [SerializeField]
     private List<SpawnInterval> _spawnIntervals = null;
 
     [SerializeField]
@@ -70,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
             float random = Random.value;
 
             float sumProbabilities = 0;
-            EnemyType spawnEnemyType = default;
+            EnemyType spawnEnemyWithType = default;
             
             foreach (EnemyType enemyType in EnemyTypes)
             {
@@ -79,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
                     continue;
                 }
 
-                spawnEnemyType = enemyType;
+                spawnEnemyWithType = enemyType;
                 sumProbabilities += spawnProbability;
                 
                 if (sumProbabilities <= random)
@@ -88,7 +91,15 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
             
-            SpawnEnemy(spawnEnemyType);
+            SpawnEnemy(spawnEnemyWithType);
+            foreach (SpawnEnemyType intervalSpawnEnemyType in CurrSpawnInterval.SpawnEnemyTypes)
+            {
+                if (intervalSpawnEnemyType.EnemyType == spawnEnemyWithType)
+                {
+                    intervalSpawnEnemyType.NumSpawned++;
+                    break;
+                }
+            }
         }
     }
 
@@ -99,8 +110,8 @@ public class EnemySpawner : MonoBehaviour
         
         // Put it in the correct position
         Transform spawnPoint = _enemySpawnPoints[Random.Range(0, _enemySpawnPoints.Count)];
-        enemy.transform.SetParent(spawnPoint);
-        enemy.transform.localPosition = Vector3.zero;
+        enemy.transform.position = spawnPoint.position;
+        enemy.transform.SetParent(_enemiesTransform);
         
         // Add tracking
         _enemyManager.RegisterEnemy(enemy);
