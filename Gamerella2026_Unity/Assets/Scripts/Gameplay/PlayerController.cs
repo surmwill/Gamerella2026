@@ -179,11 +179,6 @@ public class PlayerController : MonoBehaviour
         _timeOfLastAttack = Game.Instance.ElapsedTimeSeconds;
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log(other.gameObject.name);
-    }
-
     private void OnDie()
     {
         // Animation?

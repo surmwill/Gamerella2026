@@ -34,9 +34,7 @@ public class EnemyController : MonoBehaviour
     
     public Collider2D Collider => _collider;
     
-    public float ExternalScaleVelocity { get; set; } = 1f;
-    
-    private float ScaleVelocity => _baseStats.BaseScaleVelocity * ExternalScaleVelocity;
+    private float ScaleVelocity => _baseStats.BaseScaleVelocity * Game.Instance.GameModifiers.ExtraScaleEnemyVelocity;
 
     private PlayerController Player => Game.Instance.Player;
         

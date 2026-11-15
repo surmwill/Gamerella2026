@@ -3,15 +3,46 @@ using UnityEngine;
 
 public class GameModifiers : MonoBehaviour
 {
+    [SerializeField]
+    private float _extraScalePlayerVelocity = 1f;
+    
+    [SerializeField]
+    private float _extraScaleEnemyVelocity = 1f;
+
+    [SerializeField]
+    private int _extraPlayerDamage = 0;
+
+    [SerializeField]
+    private int _extraEnemyDamage = 0;
+    
+    [SerializeField]
+    private int _extraPlayerAttacksPerSecond = 0;
+    
     // Multiplicative with the player's velocity
-    public float ExtraScalePlayerVelocity { get; set; } = 1f;
+    public float ExtraScalePlayerVelocity
+    {
+        get => _extraScalePlayerVelocity; 
+        set => _extraScalePlayerVelocity = value;
+    }
     
     // Multiplicative with the enemy's velocity
-    public float ExtraScaleEnemyVelocity { get; set; } = 1f;
-    
-    public int ExtraPlayerDamage { get; set; }
-    
-    public int ExtraEnemyDamage { get; set; }
+    public float ExtraScaleEnemyVelocity
+    {
+        get => _extraScaleEnemyVelocity;
+        set => _extraScaleEnemyVelocity = value;
+    }
+
+    public int ExtraPlayerDamage
+    {
+        get => _extraPlayerDamage;
+        set => _extraPlayerDamage = value;
+    }
+
+    public int ExtraEnemyDamage
+    {
+        get => _extraEnemyDamage; 
+        set => _extraEnemyDamage = value;
+    }
     
     public int ExtraPlayerAttacksPerSecond { get; set; }
     
