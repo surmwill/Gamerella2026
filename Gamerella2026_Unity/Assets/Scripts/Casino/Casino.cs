@@ -3,14 +3,12 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class Casino : MonoBehaviour
 {
-    public int moneyAmount = 50;
+    public int moneyAmount = 75;
     public int betAmount = 6;
 
     public int lootBoxChance = 50;
-
 
     [SerializeField] Sprite[] cards;
 
@@ -28,11 +26,11 @@ public class Casino : MonoBehaviour
 
     [SerializeField]private int guessCardValue;
     [SerializeField]private int refCardValue;
-
     
-
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI betText;
+
+    [SerializeField] private TextMeshProUGUI lootText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,6 +50,8 @@ public class Casino : MonoBehaviour
         // set money and bet
         moneyText.SetText(moneyAmount.ToString());
         betText.SetText(betAmount.ToString());
+        lootText.SetText(lootBoxChance.ToString());
+
         UpdateMoney();
     }
 
@@ -61,13 +61,11 @@ public class Casino : MonoBehaviour
         if (Input.GetKeyDown("a"))
         {
             BetLess();
-            UpdateMoney();
         }
 
         if (Input.GetKeyDown("d"))
         {
             BetMore();
-            UpdateMoney();
         }
 
         if (Input.GetKeyDown("w"))
@@ -94,6 +92,7 @@ public class Casino : MonoBehaviour
             betAmount+=moneyAmount;
             moneyAmount-=moneyAmount;
         }
+        UpdateMoney();
     }
 
     void BetLess()
@@ -108,9 +107,9 @@ public class Casino : MonoBehaviour
         {
             moneyAmount+=betAmount-1;
             betAmount-=betAmount-1;
-
         }
         
+        UpdateMoney();
     }
 
     void BetHigh()
@@ -121,7 +120,7 @@ public class Casino : MonoBehaviour
 
             if(guessCardValue > refCardValue)
             {
-                Debug.Log("You win");
+                WinBet();
             }
 
             else if(guessCardValue == refCardValue)
@@ -131,7 +130,7 @@ public class Casino : MonoBehaviour
 
             else
             {
-                Debug.Log("You loose");
+                LooseBet();
             }
         }
     }
@@ -142,9 +141,9 @@ public class Casino : MonoBehaviour
         {
             FlipCard();
 
-            if(guessCardValue > refCardValue)
+            if(guessCardValue < refCardValue)
             {
-                Debug.Log("You win");
+                WinBet();
             }
 
             else if(guessCardValue == refCardValue)
@@ -154,12 +153,31 @@ public class Casino : MonoBehaviour
 
             else
             {
-                Debug.Log("You loose");
+                LooseBet();
             }
         }
     }
 
+    void WinBet()
+    {
+        Debug.Log("You win");
 
+        //float loot = betAmount;
+        //Debug.Log("Loot + " + loot);
+
+        lootBoxChance += betAmount;
+        lootText.SetText(lootBoxChance.ToString());
+    }
+
+    void LooseBet()
+    {
+        Debug.Log("You loose");
+        lootBoxChance -= betAmount;
+        lootText.SetText(lootBoxChance.ToString());
+
+        betAmount = 0;
+        BetMore();
+    }
 
     void FlipCard()
     {
@@ -176,7 +194,6 @@ public class Casino : MonoBehaviour
         StartCoroutine(ResetCardsCoroutine(2));
     }
 
-
     IEnumerator ResetCardsCoroutine(float duration)
     {
         canBet = false;
@@ -190,11 +207,9 @@ public class Casino : MonoBehaviour
         string[] parts = spriteName.Split('_');
         refCardValue = int.Parse(parts[1]);
 
-
         canBet = true;
         Debug.Log("changes done");
     }
-
 
     void UpdateMoney()
     {
@@ -202,5 +217,3 @@ public class Casino : MonoBehaviour
         betText.SetText(betAmount.ToString());
     }
 }
-
-
