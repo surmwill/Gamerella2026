@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// Creates different types of enemies using a pool
+/// </summary>
 public class EnemyFactory : MonoBehaviour
 {
     [SerializeField]
     private Transform _enemiesPool = null;
-
-    [SerializeField]
-    private List<Transform> _enemySpawnPoints = null;
 
     [SerializeField]
     private EnemyController _enemyPrefab = null;
@@ -21,7 +21,7 @@ public class EnemyFactory : MonoBehaviour
     
     public int NumEnemiesInPool => _numEnemiesInPool;
 
-    public EnemyController SpawnEnemy(EnemyType enemyType)
+    public EnemyController FetchEnemyFromPool(EnemyType enemyType)
     {
         EnemyController enemy = null;
         if (_enemiesPool.childCount > 0)
@@ -32,13 +32,9 @@ public class EnemyFactory : MonoBehaviour
         {
             Debug.LogWarning("Enemy pool empty, using fresh instantiation");
             enemy = Instantiate(_enemyPrefab, _enemiesPool);
-            enemy.gameObject.SetActive(false);
         }
 
-        Transform spawnPoint = _enemySpawnPoints[Random.Range(0, _enemySpawnPoints.Count)];
-        enemy.transform.SetParent(spawnPoint);
-        enemy.transform.localPosition = Vector3.zero;
-
+        enemy.gameObject.SetActive(true);
         return enemy;
     }
 

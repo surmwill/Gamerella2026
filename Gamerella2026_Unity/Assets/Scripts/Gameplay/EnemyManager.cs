@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static GameModifiers;
 
+/// <summary>
+/// Keeps track of the active enemies
+/// </summary>
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
@@ -14,13 +17,8 @@ public class EnemyManager : MonoBehaviour
     {
         Enemies = new(_enemyFactory.NumEnemiesInPool);
     }
-
-    public void SpawnEnemy()
-    {
-
-    }
-
-    private void RegisterEnemy(EnemyController enemy)
+    
+    public void RegisterEnemy(EnemyController enemy)
     {
         if (Enemies.Add(enemy))
         {

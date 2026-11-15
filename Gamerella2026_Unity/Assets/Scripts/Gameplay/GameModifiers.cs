@@ -4,6 +4,11 @@ public class GameModifiers : MonoBehaviour
 {
     private PlayerController PlayerController => Game.Instance.PlayerController;
     
+    // Maintain values of all modifiers to dynamically add to enemies
+    
+    /// <summary>
+    /// Apply a modifier to everything in the game
+    /// </summary>
     public void ApplyModifier(ModifierType modifierType)
     {
         switch (modifierType)
@@ -14,6 +19,14 @@ public class GameModifiers : MonoBehaviour
             case ModifierType.EnemyMoveFaster:
                 break;
         }
+    }
+
+    /// <summary>
+    /// Enemies are spawned dynamically
+    /// </summary>
+    public void ApplyEnemyModifier()
+    {
+        
     }
     
     public enum ModifierType
