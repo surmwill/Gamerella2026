@@ -52,6 +52,7 @@ MonoBehaviour:
   _enemyRigidbody: {fileID: 1939253900053662335}
   _collider: {fileID: 3028397817672983370}
   _lootboxPrefab: {fileID: 3426569797909264099, guid: 70d8bdc86912c35429f34a84868a5325, type: 3}
+  _model: {fileID: 6480998398790990005}
   _enemyRenderer: {fileID: 5057077223950232837}
   _knockbackLinearDampening: 3
   _knockbackSpinsPerSecond: 1

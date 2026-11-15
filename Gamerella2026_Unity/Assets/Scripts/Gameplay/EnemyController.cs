@@ -17,6 +17,9 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private Lootbox _lootboxPrefab = null;
+
+    [SerializeField]
+    private Transform _model = null;
     
     [SerializeField]
     private SkinnedMeshRenderer _enemyRenderer = null;
@@ -49,7 +52,7 @@ public class EnemyController : MonoBehaviour
     public int AttackDamage => Mathf.Max(_baseStats.BaseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage, 1);
     
     public Collider2D Collider => _collider;
-    
+
     private float ScaleVelocity => _baseStats.BaseScaleVelocity * Game.Instance.GameModifiers.ExtraScaleEnemyVelocity;
 
     private PlayerController Player => Game.Instance.Player;
@@ -86,7 +89,7 @@ public class EnemyController : MonoBehaviour
 
     private void FacePlayer()
     {
-        _spriteRenderer.flipX = Player.transform.position.x > transform.position.x;
+        _model.localScale = _model.localScale.WithX(Player.transform.position.x > transform.position.x ? 1f : -1f);
     }
 
     public void OnAttackedByPlayer(PlayerController player)
@@ -123,7 +126,7 @@ public class EnemyController : MonoBehaviour
             .Append(hitText.DOFade(0f, _hitTextDuration))
             .OnKill(() =>
             {
-                if (Game.Instance.HitTextPool != null)
+                if (Game.Instance != null)
                 {
                     Game.Instance.HitTextPool.ReturnTextToPool(hitText);   
                 }
@@ -168,7 +171,6 @@ public class EnemyController : MonoBehaviour
 
         float baseSpins = player.KnockbackDuration * _knockbackSpinsPerSecond;
         float extraSpins = Random.value * 0.5f * (Random.value >= 0.5f ? 1f : -1f);
-        
         
         // Switch back to using linear velocity
         _knockedBackSequence = DOTween.Sequence()
