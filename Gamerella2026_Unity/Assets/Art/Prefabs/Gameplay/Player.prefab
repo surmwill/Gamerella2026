@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _playerRigidbody: {fileID: 1369632976829333661}
-  _attackArea: {fileID: 0}
+  _attackArea: {fileID: 5668339629760343544}
   _baseScaleVelocity: 20
   _baseAttackDamage: 10
   _baseAttacksPerSecond: 0.1
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 2692586067867052421}
   - component: {fileID: 5668339629760343544}
   m_Layer: 8
-  m_Name: AttackAreaVisual
+  m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -54,7 +54,7 @@ public class EnemyConfigurationsSO : ScriptableObject, ISerializationCallbackRec
     public class EnemyBaseStats
     {
         [SerializeField]
-        private int _baseHealth = 0;
+        private int _baseHealth = 100;
 
         [SerializeField]
         private float _baseScaleVelocity = 10f;
