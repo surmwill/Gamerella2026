@@ -1,4 +1,5 @@
 using DG.Tweening;
+using ProphetAR;
 using UnityEngine;
 using static EnemyConfigurationsSO;
 
@@ -130,6 +131,7 @@ public class EnemyController : MonoBehaviour
             {
                 _enemyRigidbody.linearDamping = 0f;
                 _collider.enabled = true;
+                transform.localEulerAngles = transform.localEulerAngles.WithZ(0f);
             });
     }
 
