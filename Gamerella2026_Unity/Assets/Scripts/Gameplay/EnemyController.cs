@@ -73,6 +73,8 @@ public class EnemyController : MonoBehaviour
 
     public void OnAttacked(PlayerController player)
     {
+        Debug.Log("ATTACKED");
+        
         Health = Mathf.Max(Health - player.AttackDamage, 0f);
         if (Health <= 0f)
         {
@@ -80,6 +82,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
         
+        Debug.Log("KNOCKED BACK");
         ApplyKnockback(player.transform.position, player.KnockbackForce, player.KnockbackDuration);
     }
 
@@ -102,6 +105,8 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     private void ApplyKnockback(Vector3 damageSourcePosition, float knockbackForce, float knockbackDuration)
     {
+        _knockedBackSequence?.Kill();
+        
         Vector3 currentPos = transform.position;
         Vector3 rawDirection = (currentPos - damageSourcePosition).normalized;
         
@@ -109,11 +114,17 @@ public class EnemyController : MonoBehaviour
         _enemyRigidbody.linearVelocity = Vector3.zero;
         _enemyRigidbody.linearDamping = _knockbackLinearDampening;
         _enemyRigidbody.AddForce(rawDirection * knockbackForce, ForceMode2D.Impulse);
+
+        _collider.enabled = false;
         
         // Switch back to using linear velocity
         _knockedBackSequence = DOTween.Sequence()
             .AppendInterval(knockbackDuration)
-            .OnKill(() => _enemyRigidbody.linearDamping = 0f);
+            .OnKill(() =>
+            {
+                _enemyRigidbody.linearDamping = 0f;
+                _collider.enabled = true;
+            });
     }
 
     private void OnCollisionEnter2D(Collision2D other)

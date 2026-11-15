@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         if (CanAttack)
         {
-            TryAttackClosestEnemy();
+            // TryAttackClosestEnemy();
         }
         
         _playerRigidbody.linearVelocity = _moveInput * ScaleVelocity;
