@@ -70,7 +70,7 @@ public class EnemySpawner : MonoBehaviour
         // Spawn anything in the new interval
         int numSpawned = CurrSpawnInterval.TotalSpawned;
         int numShouldBeSpawned = Mathf.FloorToInt(CurrSpawnInterval.PctCompletion * CurrSpawnInterval.TotalToSpawn);
-
+        
         for (int i = numSpawned; i < numShouldBeSpawned; i++)
         {
             Dictionary<EnemyType, float> enemyTypeSpawnProbabilites = GetRemainingSpawnEnemyTypeProbabilites(CurrSpawnInterval);

@@ -52,6 +52,7 @@ MonoBehaviour:
   _enemyRigidbody: {fileID: 1939253900053662335}
   _collider: {fileID: 3028397817672983370}
   _lootboxPrefab: {fileID: 3426569797909264099, guid: 70d8bdc86912c35429f34a84868a5325, type: 3}
+  _enemyRenderer: {fileID: 5057077223950232837}
   _knockbackLinearDampening: 3
   _knockbackSpinsPerSecond: 1
   _hitTextOffsetY: 0
@@ -281,6 +282,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecfe29dbf8268fc4aaaba0fa8dcad860, type: 3}
+--- !u!137 &5057077223950232837 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5550651155244075295, guid: ecfe29dbf8268fc4aaaba0fa8dcad860, type: 3}
+  m_PrefabInstance: {fileID: 804322580561060890}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6480998398790990005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5969704463196560559, guid: ecfe29dbf8268fc4aaaba0fa8dcad860, type: 3}

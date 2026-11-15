@@ -137,8 +137,11 @@ public class EnemyController : MonoBehaviour
 
         if (Random.value < Lootbox.LootboxDropChance)
         {
-            Lootbox lootbox = Instantiate(_lootboxPrefab, Game.Instance.LootboxesTransform);
-            lootbox.transform.position = transform.position;
+            DOTween.Sequence().AppendInterval(1.5f).OnComplete(() =>
+            {
+                Lootbox lootbox = Instantiate(_lootboxPrefab, Game.Instance.LootboxesTransform);
+                lootbox.transform.position = transform.position;
+            });
         }
     }
     
