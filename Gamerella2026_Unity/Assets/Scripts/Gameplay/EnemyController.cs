@@ -76,7 +76,6 @@ public class EnemyController : MonoBehaviour
         Health = Mathf.Max(Health - player.AttackDamage, 0f);
         if (Health <= 0f)
         {
-            Debug.Log("Killed");
             Kill();
             return;
         }

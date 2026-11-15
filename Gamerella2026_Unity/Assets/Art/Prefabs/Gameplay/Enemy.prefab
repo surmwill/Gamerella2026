@@ -50,7 +50,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 3481134579726862018}
   _enemyRigidbody: {fileID: 1939253900053662335}
   _collider: {fileID: 3028397817672983370}
-  _knockbackLinearDampening: 0.15
+  _knockbackLinearDampening: 3
   _health: 0
   _baseStats:
     _baseHealth: 0
