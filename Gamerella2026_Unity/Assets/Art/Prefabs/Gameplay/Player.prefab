@@ -74,6 +74,13 @@ MonoBehaviour:
       Data3: 541424553
       Data4: 1258857666
     Path: event:/Players/Player_1/Player_Death
+  _footstepSoundReference:
+    Guid:
+      Data1: -399218115
+      Data2: 1250863646
+      Data3: 61427368
+      Data4: -1216563141
+    Path: event:/Players/Player_1/Player_Footsteps
 --- !u!50 &1369632976829333661
 Rigidbody2D:
   serializedVersion: 5

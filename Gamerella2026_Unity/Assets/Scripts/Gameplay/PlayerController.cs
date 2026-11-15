@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using FMOD.Studio;
 using FMODUnity;
 using ProphetAR;
 using UnityEngine;
@@ -47,6 +48,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private EventReference _onDeathSoundReference;
     
+    [SerializeField] 
+    private EventReference _footstepSoundReference;
+    
     public event Action<int> OnPlayerTokensUpdated;
     
     public int NumTokens 
@@ -91,6 +95,8 @@ public class PlayerController : MonoBehaviour
     private static readonly int DeathStateHash = Animator.StringToHash("Dead-GameOver");
     
     private readonly Collider2D[] _enemiesInAttackRange = new Collider2D[MaxEnemiesDetectedInAttackRange];
+    
+    private EventInstance _footstepInstance;
 
     private int _numTokens;
     
@@ -102,7 +108,13 @@ public class PlayerController : MonoBehaviour
     {
         Health = _baseHealth;
     }
-    
+
+    private void Start()
+    {
+        _footstepInstance = RuntimeManager.CreateInstance(_footstepSoundReference);
+        _footstepInstance.setPaused(true);
+    }
+
     private void FixedUpdate()
     {
         if (IsDead)
@@ -121,6 +133,15 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(_moveInput.x) > 0)
         {
             _model.localScale = _model.localScale.WithX(_moveInput.x >= 0f ? 1f : -1f);
+        }
+
+        if (Mathf.Abs(_moveInput.x) > 0 || Mathf.Abs(_moveInput.y) > 0)
+        {
+            _footstepInstance.setPaused(false);
+        }
+        else
+        {
+            _footstepInstance.setPaused(true);
         }
     }
 
