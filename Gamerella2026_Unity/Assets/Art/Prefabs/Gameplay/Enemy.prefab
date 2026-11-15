@@ -51,7 +51,6 @@ MonoBehaviour:
   _enemyRigidbody: {fileID: 1939253900053662335}
   _collider: {fileID: 3028397817672983370}
   _lootboxPrefab: {fileID: 3426569797909264099, guid: 70d8bdc86912c35429f34a84868a5325, type: 3}
-  _lootboxDropChance: 1
   _knockbackLinearDampening: 3
   _health: 0
   _baseStats:
@@ -116,7 +115,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

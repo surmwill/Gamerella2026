@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         _moveInput = new Vector2(moveX, moveY).normalized;
     }
 
-    public void OnAttacked(EnemyController enemy)
+    public void OnAttackedByEnemy(EnemyController enemy)
     {
         // Deflect if we can attack
         if (CanAttack)
@@ -139,6 +139,8 @@ public class PlayerController : MonoBehaviour
         {
             OnDie();
         }
+        
+        enemy.ApplyKnockbackFromPlayer(this);
     }
 
     private bool TryAttackClosestEnemy()
@@ -175,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
     private void AttackEnemy(EnemyController enemy)
     {
-        enemy.OnAttacked(this);
+        enemy.OnAttackedByPlayer(this);
         _timeOfLastAttack = Game.Instance.ElapsedTimeSeconds;
     }
 

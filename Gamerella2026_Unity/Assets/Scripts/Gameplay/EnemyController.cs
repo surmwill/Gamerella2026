@@ -71,7 +71,7 @@ public class EnemyController : MonoBehaviour
         _spriteRenderer.flipX = Player.transform.position.x > transform.position.x;
     }
 
-    public void OnAttacked(PlayerController player)
+    public void OnAttackedByPlayer(PlayerController player)
     {
         Debug.Log("ATTACKED");
         
@@ -83,7 +83,7 @@ public class EnemyController : MonoBehaviour
         }
         
         Debug.Log("KNOCKED BACK");
-        ApplyKnockback(player.transform.position, player.KnockbackForce, player.KnockbackDuration);
+        ApplyKnockbackFromPlayer(player);
     }
 
     private void Kill()
@@ -103,23 +103,23 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// Applies knockback via physics impulse, respecting walls and map bounds.
     /// </summary>
-    private void ApplyKnockback(Vector3 damageSourcePosition, float knockbackForce, float knockbackDuration)
+    public void ApplyKnockbackFromPlayer(PlayerController player)
     {
         _knockedBackSequence?.Kill();
         
         Vector3 currentPos = transform.position;
-        Vector3 rawDirection = (currentPos - damageSourcePosition).normalized;
+        Vector3 rawDirection = (currentPos - player.transform.position).normalized;
         
         // Switch to using force
         _enemyRigidbody.linearVelocity = Vector3.zero;
         _enemyRigidbody.linearDamping = _knockbackLinearDampening;
-        _enemyRigidbody.AddForce(rawDirection * knockbackForce, ForceMode2D.Impulse);
+        _enemyRigidbody.AddForce(rawDirection * player.KnockbackForce, ForceMode2D.Impulse);
 
         _collider.enabled = false;
         
         // Switch back to using linear velocity
         _knockedBackSequence = DOTween.Sequence()
-            .AppendInterval(knockbackDuration)
+            .AppendInterval(player.KnockbackDuration)
             .OnKill(() =>
             {
                 _enemyRigidbody.linearDamping = 0f;
@@ -127,11 +127,11 @@ public class EnemyController : MonoBehaviour
             });
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject == Game.Instance.Player.gameObject)
         {
-            Game.Instance.Player.OnAttacked(this);
+            Game.Instance.Player.OnAttackedByEnemy(this);
         }
     }
 }
