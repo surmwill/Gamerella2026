@@ -7,7 +7,7 @@ using TMPro;
 public class Casino : MonoBehaviour
 {
     public int moneyAmount = 50;
-    public int betAmount = 5;
+    public int betAmount = 6;
 
     public int lootBoxChance = 50;
 
@@ -19,6 +19,8 @@ public class Casino : MonoBehaviour
 
     [SerializeField] GameObject refCard;
     private Sprite refCardSprite;
+
+    [SerializeField] Sprite backCardSprite;
 
     private int cardGenerate;
 
@@ -37,24 +39,20 @@ public class Casino : MonoBehaviour
     {
         //Generate the first ref card
         cardGenerate = Random.Range(0,cards.Length);
-        Debug.Log(cardGenerate);
-
         refCardSprite = cards[cardGenerate];
-        Debug.Log(refCardSprite);
 
         refCard.GetComponent<Image>().sprite = refCardSprite;
-        guessCard.GetComponent<Image>().sprite = null;
+        guessCard.GetComponent<Image>().sprite = backCardSprite;
 
         string spriteName = refCardSprite.name;
         string[] parts = spriteName.Split('_');
 
         refCardValue = int.Parse(parts[1]);
 
-        //Debug.Log(refCardValue);
-
         // set money and bet
         moneyText.SetText(moneyAmount.ToString());
         betText.SetText(betAmount.ToString());
+        UpdateMoney();
     }
 
     // Update is called once per frame
@@ -85,15 +83,34 @@ public class Casino : MonoBehaviour
 
     void BetMore()
     {
-        Debug.Log("Bet More");
-        moneyAmount-=5;
-        betAmount+=5;
+        if (moneyAmount >= 5)
+        {
+            moneyAmount-=5;
+            betAmount+=5;
+        }
+
+        else if (moneyAmount < 5)
+        {
+            betAmount+=moneyAmount;
+            moneyAmount-=moneyAmount;
+        }
     }
+
     void BetLess()
     {
-        Debug.Log("Bet Less");
-        moneyAmount+=5;
-        betAmount-=5;
+        if (betAmount > 5)
+        {
+            moneyAmount+=5;
+            betAmount-=5;
+        }
+
+        else if (betAmount < 4 && betAmount > 0)
+        {
+            moneyAmount+=betAmount-1;
+            betAmount-=betAmount-1;
+
+        }
+        
     }
 
     void BetHigh()
@@ -166,7 +183,7 @@ public class Casino : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
 
-        guessCard.GetComponent<Image>().sprite = null;
+        guessCard.GetComponent<Image>().sprite = backCardSprite;
         refCard.GetComponent<Image>().sprite = guessCardSprite;
 
         string spriteName = guessCardSprite.name;

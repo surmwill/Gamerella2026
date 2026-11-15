@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Casino
   moneyAmount: 50
-  betAmount: 5
+  betAmount: 8
   lootBoxChance: 50
   cards:
   - {fileID: 3196221610730321274, guid: eca883cc54af73742bb8d1b12b4b05a8, type: 3}
@@ -1650,6 +1650,7 @@ MonoBehaviour:
   - {fileID: 624131365561964375, guid: 759129f175f9bf04fbd33495964aafe3, type: 3}
   guessCard: {fileID: 1548385963}
   refCard: {fileID: 636100858}
+  backCardSprite: {fileID: -9155667468717408331, guid: 4c65f328fba2dc24289fd24e4e6b43fe, type: 3}
   guessCardValue: 0
   refCardValue: 5
   moneyText: {fileID: 2009946808}
