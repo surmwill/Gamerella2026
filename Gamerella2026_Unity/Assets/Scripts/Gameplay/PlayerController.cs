@@ -1,4 +1,5 @@
 using System;
+using ProphetAR;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]
     private float _knockbackDuration = 0.25f;
+
+    [SerializeField]
+    private Transform _model = null;
 
     public event Action<int> OnPlayerTokensUpdated;
     
@@ -91,6 +95,12 @@ public class PlayerController : MonoBehaviour
         }
         
         _playerRigidbody.linearVelocity = _moveInput * ScaleVelocity;
+
+        // Face correction direction
+        if (Mathf.Abs(_moveInput.x) > 0)
+        {
+            _model.localScale = _model.localScale.WithX(_moveInput.x >= 0f ? 1f : -1f);
+        }
     }
 
     private void Update()

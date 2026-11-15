@@ -58,6 +58,7 @@ MonoBehaviour:
   _baseHealth: 100
   _knockbackForce: 25
   _knockbackDuration: 1
+  _model: {fileID: 1442746109015540789}
 --- !u!50 &1369632976829333661
 Rigidbody2D:
   serializedVersion: 5
