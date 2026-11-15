@@ -729,10 +729,10 @@ MonoBehaviour:
   _enemiesTransform: {fileID: 653382006234104503}
   _spawnIntervals:
   - _startIntervalSeconds: 0
-    _endIntervalSecondsExclusive: 1
+    _endIntervalSecondsExclusive: 30
     _spawnEnemyTypes:
     - _enemyType: 0
-      _numToSpawn: 1
+      _numToSpawn: 30
   _enemySpawnPoints:
   - {fileID: 109869249759261546}
   - {fileID: 2978661739151161575}
@@ -1927,10 +1927,6 @@ PrefabInstance:
     - target: {fileID: 674236546216587280, guid: f17b303beef3e184aa978aaa8b5bfaec, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4283231038684967777, guid: f17b303beef3e184aa978aaa8b5bfaec, type: 3}
-      propertyPath: _baseAttackDamage
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5631994362373726174, guid: f17b303beef3e184aa978aaa8b5bfaec, type: 3}
       propertyPath: m_Layer

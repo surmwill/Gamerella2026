@@ -53,7 +53,7 @@ MonoBehaviour:
   _health: 100
   _baseScaleVelocity: 20
   _baseAttackDamage: 10
-  _baseAttacksPerSecond: 1
+  _baseAttacksPerSecond: 10
   _baseHealth: 100
   _knockbackForce: 25
   _knockbackDuration: 1
