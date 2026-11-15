@@ -60,6 +60,13 @@ MonoBehaviour:
   _knockbackDuration: 1
   _model: {fileID: 1442746109015540789}
   _playerAnimator: {fileID: 2058101081966719637}
+  _onAttackSoundReference:
+    Guid:
+      Data1: 817015823
+      Data2: 1250447667
+      Data3: 379684249
+      Data4: 1535692937
+    Path: event:/Players/Player_1/Player_Attack
 --- !u!50 &1369632976829333661
 Rigidbody2D:
   serializedVersion: 5

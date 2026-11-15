@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using FMODUnity;
 using ProphetAR;
 using UnityEngine;
 
@@ -39,6 +40,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Animator _playerAnimator = null;
+
+    [SerializeField]
+    private EventReference _onAttackSoundReference;
     
     public event Action<int> OnPlayerTokensUpdated;
     
@@ -211,6 +215,7 @@ public class PlayerController : MonoBehaviour
     private void AttackEnemy(EnemyController enemy)
     {
         _playerAnimator.Play(AttackStateHash);
+        RuntimeManager.PlayOneShot(_onAttackSoundReference);
         
         enemy.OnAttackedByPlayer(this);
         _timeOfLastAttack = Game.Instance.ElapsedTimeSeconds;
