@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
         }
         
         enemy.ApplyKnockbackFromPlayer(this);
+        enemy.ShowHitText("Knockback Only");
     }
 
     private bool TryAttackClosestEnemy()

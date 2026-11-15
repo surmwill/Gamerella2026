@@ -1,4 +1,5 @@
 using System;
+using Gameplay;
 using UnityEngine;
 using static EndGameScreen;
 
@@ -19,7 +20,11 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Transform _lootboxesTransform = null;
 
-    public float ElapsedTimeSeconds => Time.realtimeSinceStartup - _gameStartedSeconds;
+    [SerializeField]
+    private HitTextPool _hitTextPool = null;
+    
+    [SerializeField]
+    private Transform _hitTestTransform = null;
     
     public static Game Instance
     {
@@ -39,6 +44,10 @@ public class Game : MonoBehaviour
         }
     }
     
+    public HitTextPool HitTextPool => _hitTextPool;
+
+    public float ElapsedTimeSeconds => Time.realtimeSinceStartup - _gameStartedSeconds;
+    
     public PlayerController Player => _playerController;
 
     public EnemyManager EnemyManager => _enemyManager;
@@ -48,6 +57,8 @@ public class Game : MonoBehaviour
     public GameModifiers GameModifiers => _gameModifiers;
     
     public Transform LootboxesTransform => _lootboxesTransform;
+    
+    public Transform HitTestTransform => _hitTestTransform;
 
     private float _gameStartedSeconds;
 

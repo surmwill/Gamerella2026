@@ -1,5 +1,6 @@
 using DG.Tweening;
 using ProphetAR;
+using TMPro;
 using UnityEngine;
 using static EnemyConfigurationsSO;
 
@@ -22,6 +23,12 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private float _knockbackSpinsPerSecond = 1f;
+
+    [SerializeField]
+    private float _hitTextOffsetY = 0f;
+
+    [SerializeField]
+    private float _hitTextDuration = 1f;
     
     [Header("Stats")]
     [SerializeField]
@@ -45,6 +52,8 @@ public class EnemyController : MonoBehaviour
     private PlayerController Player => Game.Instance.Player;
         
     private Sequence _knockedBackSequence = null;
+    
+    private Sequence _hitTestSequence = null;
     
     public void SpawnWithConfiguration(EnemyConfiguration enemyConfiguration)
     {
@@ -77,6 +86,10 @@ public class EnemyController : MonoBehaviour
 
     public void OnAttackedByPlayer(PlayerController player)
     {
+        // Show the damage
+        ShowHitText(player.AttackDamage.ToString());
+        
+        // Subtract the health
         Health = Mathf.Max(Health - player.AttackDamage, 0f);
         if (Health <= 0f)
         {
@@ -84,7 +97,28 @@ public class EnemyController : MonoBehaviour
             return;
         }
         
+        // Knockback if still alive
         ApplyKnockbackFromPlayer(player);
+    }
+
+    public void ShowHitText(string text)
+    {
+        Debug.Log("SHOWING text " + text);
+        _hitTestSequence?.Kill();
+        
+        TMP_Text hitText = Game.Instance.HitTextPool.FetchTextFromPool();
+        hitText.transform.SetParent(Game.Instance.HitTestTransform);
+        hitText.transform.position = transform.position.WithY(transform.position.y + _hitTextOffsetY);
+
+        hitText.text = text;
+        hitText.alpha = 1.0f;
+        
+        _hitTestSequence = DOTween.Sequence()
+            .Append(hitText.DOFade(0f, _hitTextDuration))
+            .OnKill(() =>
+            {
+                Game.Instance.HitTextPool.ReturnTextToPool(hitText);
+            });
     }
 
     private void Kill()
@@ -92,6 +126,8 @@ public class EnemyController : MonoBehaviour
         Player.NumTokens += _baseStats.TokensDropped;
         
         _knockedBackSequence?.Kill();
+        _hitTestSequence?.Kill();
+        
         Game.Instance.EnemySpawner.CleanupEnemy(this);
 
         if (Random.value < Lootbox.LootboxDropChance)
