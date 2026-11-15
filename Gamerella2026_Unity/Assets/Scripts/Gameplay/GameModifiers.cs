@@ -2,31 +2,42 @@ using UnityEngine;
 
 public class GameModifiers : MonoBehaviour
 {
-    private PlayerController PlayerController => Game.Instance.PlayerController;
+    // Multiplicative with the player's velocity
+    public float ExtraScalePlayerVelocity { get; set; }
     
-    // Maintain values of all modifiers to dynamically add to enemies
+    // Multiplicative with the enemy's velocity
+    public float ExtraScaleEnemyVelocity { get; set; }
+    
+    public float ExtraPlayerDamage { get; set; }
+    
+    public float ExtraEnemyDamage { get; set; }
+    
+    public float ExtraPlayerAttackSpeed { get; set; }
     
     /// <summary>
     /// Apply a modifier to everything in the game
     /// </summary>
-    public void ApplyModifier(ModifierType modifierType)
+    public void ApplyModifier(ModifierType modifierType, float modifierValue)
     {
         switch (modifierType)
         {
             case ModifierType.PlayerMoveFaster:
+                ExtraScalePlayerVelocity += modifierValue;
                 break;
             
             case ModifierType.EnemyMoveFaster:
+                ExtraScaleEnemyVelocity += modifierValue;
+                break;
+            
+            case ModifierType.PlayerMoreDamage:
+                break;
+            
+            case ModifierType.EnemyMoreDamage:
+                break;
+            
+            case ModifierType.PlayerAttackFaster:
                 break;
         }
-    }
-
-    /// <summary>
-    /// Enemies are spawned dynamically
-    /// </summary>
-    public void ApplyEnemyModifier()
-    {
-        
     }
     
     public enum ModifierType

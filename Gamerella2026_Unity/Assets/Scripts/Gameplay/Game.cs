@@ -7,6 +7,9 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private EnemyManager _enemyManager = null;
+    
+    [SerializeField]
+    private GameModifiers _gameModifiers = null;
 
     public float ElapsedTimeSeconds => Time.realtimeSinceStartup - _gameStartedSeconds;
 
@@ -33,6 +36,8 @@ public class Game : MonoBehaviour
     public PlayerController PlayerController => _playerController;
 
     public EnemyManager EnemyManager => _enemyManager;
+    
+    public GameModifiers GameModifiers => _gameModifiers;
     
     private static Game _instance;
     
