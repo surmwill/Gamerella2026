@@ -26,7 +26,6 @@ public class MainMenu : MonoBehaviour
 
     public void StopMenuMusic()
     {
-        Debug.Log("STOPPED");
         _isStarted = false;
         _eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
