@@ -47,4 +47,9 @@ public class EnemyController : MonoBehaviour
     public void OnAttack()
     {
     }
+
+    public void OnKilled()
+    {
+        Game.Instance.EnemySpawner.CleanupEnemy(this);
+    }
 }

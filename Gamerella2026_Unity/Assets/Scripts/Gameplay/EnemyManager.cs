@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameModifiers;
 
 /// <summary>
 /// Keeps track of the active enemies
@@ -20,8 +18,9 @@ public class EnemyManager : MonoBehaviour
     
     public void RegisterEnemy(EnemyController enemy)
     {
-        if (Enemies.Add(enemy))
+        if (!Enemies.Add(enemy))
         {
+            Debug.LogWarning($"Already registered enemy: {enemy.name}");
         }
     }
 
@@ -31,15 +30,9 @@ public class EnemyManager : MonoBehaviour
         {
             _enemyFactory.ReturnEnemyToPool(enemy);   
         }
-    }
-
-    public void ApplyEnemyModifier(ModifierType modifierType)
-    {
-        
-    }
-
-    private void Update()
-    {
-        
+        else
+        {
+            Debug.LogWarning($"Already unregistered enemy: {enemy.name}");
+        }
     }
 }

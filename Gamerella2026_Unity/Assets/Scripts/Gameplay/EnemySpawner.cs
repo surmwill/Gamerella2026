@@ -94,13 +94,25 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(EnemyType enemyType)
     {
+        // Get the enemy's GameObject
         EnemyController enemy = _enemyFactory.FetchEnemyFromPool(enemyType);
         
-        // Apply game modifiers to the enemy
-        
+        // Put it in the correct position
         Transform spawnPoint = _enemySpawnPoints[Random.Range(0, _enemySpawnPoints.Count)];
         enemy.transform.SetParent(spawnPoint);
         enemy.transform.localPosition = Vector3.zero;
+        
+        // Add tracking
+        _enemyManager.RegisterEnemy(enemy);
+        
+        // Actual spawn
+        enemy.OnSpawned();
+    }
+
+    public void CleanupEnemy(EnemyController enemy)
+    {
+        _enemyManager.UnregisterEnemy(enemy);
+        _enemyFactory.ReturnEnemyToPool(enemy);
     }
 
     private bool ShouldUpdateCurrInterval(out SpawnInterval updatedSpawnInterval)

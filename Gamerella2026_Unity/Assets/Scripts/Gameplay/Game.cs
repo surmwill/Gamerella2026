@@ -7,6 +7,9 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private EnemyManager _enemyManager = null;
+
+    [SerializeField]
+    private EnemySpawner _enemySpawner = null;
     
     [SerializeField]
     private GameModifiers _gameModifiers = null;
@@ -36,6 +39,8 @@ public class Game : MonoBehaviour
     public PlayerController PlayerController => _playerController;
 
     public EnemyManager EnemyManager => _enemyManager;
+
+    public EnemySpawner EnemySpawner => _enemySpawner;
     
     public GameModifiers GameModifiers => _gameModifiers;
     
