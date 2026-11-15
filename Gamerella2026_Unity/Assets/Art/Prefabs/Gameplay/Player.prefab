@@ -67,6 +67,13 @@ MonoBehaviour:
       Data3: 379684249
       Data4: 1535692937
     Path: event:/Players/Player_1/Player_Attack
+  _onDeathSoundReference:
+    Guid:
+      Data1: 1829557494
+      Data2: 1193711740
+      Data3: 541424553
+      Data4: 1258857666
+    Path: event:/Players/Player_1/Player_Death
 --- !u!50 &1369632976829333661
 Rigidbody2D:
   serializedVersion: 5

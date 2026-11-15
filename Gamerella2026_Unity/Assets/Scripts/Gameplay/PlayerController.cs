@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private EventReference _onAttackSoundReference;
     
+    [SerializeField]
+    private EventReference _onDeathSoundReference;
+    
     public event Action<int> OnPlayerTokensUpdated;
     
     public int NumTokens 
@@ -223,6 +226,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDie()
     {
+        RuntimeManager.PlayOneShot(_onDeathSoundReference);
+        
         foreach (Collider collider in GetComponentsInChildren<Collider>())
         {
             collider.enabled = false;
