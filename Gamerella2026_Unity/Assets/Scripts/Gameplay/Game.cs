@@ -13,6 +13,9 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private GameModifiers _gameModifiers = null;
+    
+    [SerializeField]
+    private Transform _lootboxesTransform = null;
 
     public float ElapsedTimeSeconds => Time.realtimeSinceStartup - _gameStartedSeconds;
 
@@ -43,6 +46,8 @@ public class Game : MonoBehaviour
     public EnemySpawner EnemySpawner => _enemySpawner;
     
     public GameModifiers GameModifiers => _gameModifiers;
+    
+    public Transform LootboxesTransform => _lootboxesTransform;
     
     private static Game _instance;
     

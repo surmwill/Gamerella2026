@@ -17,6 +17,20 @@ public class GameModifiers : MonoBehaviour
     
     [SerializeField]
     private int _extraPlayerAttacksPerSecond = 0;
+
+    public static readonly List<ModifierType> GoodModifiers = new()
+    {
+        ModifierType.PlayerAttackFaster, 
+        ModifierType.PlayerMoreDamage, 
+        ModifierType.PlayerMoveFaster
+    };
+    
+    public static readonly List<ModifierType> BadModifiers = new()
+    {
+        ModifierType.PlayerAttackFaster, 
+        ModifierType.PlayerMoreDamage, 
+        ModifierType.PlayerMoveFaster
+    };
     
     // Multiplicative with the player's velocity
     public float ExtraScalePlayerVelocity
@@ -49,17 +63,17 @@ public class GameModifiers : MonoBehaviour
     /// <summary>
     /// Apply a modifier to everything in the game
     /// </summary>
-    public void ApplyModifier(ModifierType modifierType, object modifierValue)
+    public void ApplyModifier(ModifierType modifierType, float modifierValue)
     {
         switch (modifierType)
         {
             // ex: 1.5X -> 1.6X -> 1.7X faster
             case ModifierType.PlayerMoveFaster:
-                ExtraScalePlayerVelocity += (float) modifierValue;
+                ExtraScalePlayerVelocity += modifierValue;
                 break;
             
             case ModifierType.EnemyMoveFaster:
-                ExtraScaleEnemyVelocity += (float) modifierValue;
+                ExtraScaleEnemyVelocity += modifierValue;
                 break;
             
             case ModifierType.PlayerMoreDamage:
