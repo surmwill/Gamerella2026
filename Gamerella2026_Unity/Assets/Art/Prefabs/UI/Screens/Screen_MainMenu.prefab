@@ -160,10 +160,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8817596476276781077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 2000, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3173703730490999811
 CanvasRenderer:
@@ -186,14 +186,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24705882, g: 0.6666667, b: 0.49411765, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2522736044966787588, guid: b055c34d75257bb47aebf919e37c23e7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -397,6 +397,22 @@ PrefabInstance:
       propertyPath: m_text
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 569fc6ed58e699647af92af5978d06fb, type: 3}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6481863675378814838, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -555,6 +571,22 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 569fc6ed58e699647af92af5978d06fb, type: 3}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6481863675378814838, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -701,6 +733,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_Play
       objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 569fc6ed58e699647af92af5978d06fb, type: 3}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6481863675378814838, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -830,6 +878,22 @@ PrefabInstance:
     - target: {fileID: 5582948176539133902, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
       propertyPath: m_text
       value: Credits
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 569fc6ed58e699647af92af5978d06fb, type: 3}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127291655800047188, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6481863675378814838, guid: eff1a8c1b8c596e4a90706e20e52ee48, type: 3}
       propertyPath: m_AnchorMax.y
