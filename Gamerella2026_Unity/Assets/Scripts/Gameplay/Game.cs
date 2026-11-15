@@ -1,7 +1,10 @@
 using System;
+using FMOD.Studio;
+using FMODUnity;
 using Gameplay;
 using UnityEngine;
 using static EndGameScreen;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class Game : MonoBehaviour
 {
@@ -25,6 +28,11 @@ public class Game : MonoBehaviour
     
     [SerializeField]
     private Transform _hitTestTransform = null;
+    
+    [SerializeField] 
+    private EventReference _soundtrackReference;
+
+    private EventInstance _soundtrackInstance;
     
     public static Game Instance
     {
@@ -71,6 +79,9 @@ public class Game : MonoBehaviour
 
     public void EndGame()
     {
+        _soundtrackInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        _soundtrackInstance.release();
+        
         Destroy(gameObject);
         _onEndGame?.Invoke(new EndGameData(ElapsedTimeSeconds));
     }
@@ -89,6 +100,8 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _gameStartedSeconds = Time.realtimeSinceStartup;
+        _soundtrackInstance = RuntimeManager.CreateInstance(_soundtrackReference);
+        _soundtrackInstance.start();
     }
 
     private void Update()

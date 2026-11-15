@@ -863,6 +863,13 @@ MonoBehaviour:
   _lootboxesTransform: {fileID: 7513540821792993370}
   _hitTextPool: {fileID: 1726921865151185069}
   _hitTestTransform: {fileID: 1913193683403931791}
+  _soundtrackReference:
+    Guid:
+      Data1: -548591119
+      Data2: 1321407658
+      Data3: 1180319105
+      Data4: -1357952137
+    Path: event:/Music/Music_main
 --- !u!114 &4313577755373785883
 MonoBehaviour:
   m_ObjectHideFlags: 0
