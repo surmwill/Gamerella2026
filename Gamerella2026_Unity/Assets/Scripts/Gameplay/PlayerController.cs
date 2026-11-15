@@ -120,7 +120,6 @@ public class PlayerController : MonoBehaviour
         }
         
         _moveInput = new Vector2(moveX, moveY).normalized;
-        Debug.Log(_moveInput);
     }
 
     public void OnAttacked(EnemyController enemy)

@@ -18,6 +18,6 @@ MonoBehaviour:
       _sprite: {fileID: 0}
     _baseStats:
       _baseHealth: 100
-      _baseScaleVelocity: 10
+      _baseScaleVelocity: 20
       _baseAttackDamage: 10
       _tokensDropped: 1

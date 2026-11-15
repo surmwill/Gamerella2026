@@ -17,10 +17,9 @@ public class EnemyController : MonoBehaviour
     private float _knockbackLinearDampening = 0.15f;
     
     [Header("Stats")]
-    [SerializeField]
     [ReadOnly]
+    [SerializeField]
     private float _health;
-
     
     [SerializeField]
     private EnemyBaseStats _baseStats = null;
@@ -77,6 +76,7 @@ public class EnemyController : MonoBehaviour
         Health = Mathf.Max(Health - player.AttackDamage, 0f);
         if (Health <= 0f)
         {
+            Debug.Log("Killed");
             Kill();
             return;
         }
@@ -97,6 +97,8 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     private void ApplyKnockback(Vector3 damageSourcePosition, float knockbackForce, float knockbackDuration)
     {
+        Debug.Log("knockback applied");
+        
         Vector3 currentPos = transform.position;
         Vector3 rawDirection = (currentPos - damageSourcePosition).normalized;
         

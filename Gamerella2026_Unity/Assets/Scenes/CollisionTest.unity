@@ -1684,10 +1684,10 @@ MonoBehaviour:
   _enemiesTransform: {fileID: 796546353}
   _spawnIntervals:
   - _startIntervalSeconds: 0
-    _endIntervalSecondsExclusive: 30
+    _endIntervalSecondsExclusive: 1
     _spawnEnemyTypes:
     - _enemyType: 0
-      _numToSpawn: 10
+      _numToSpawn: 1
   _enemySpawnPoints:
   - {fileID: 1918735472947948875}
   - {fileID: 378060407}
