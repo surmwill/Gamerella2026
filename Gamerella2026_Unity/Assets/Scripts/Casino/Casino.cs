@@ -9,11 +9,19 @@ public class Casino : MonoBehaviour
     private enum RoundResult { Win, Lose, Draw }
 
     [Header("Money")]
-    public int moneyAmount = 75;
+    public int moneyAmount
+    {
+        get => Game.Instance.Player.NumTokens;
+        set => Game.Instance.Player.NumTokens = value;
+    }
+    
     [Tooltip("Starting stake. It is taken out of moneyAmount when a game starts.")]
     public int betAmount = 5;
     [SerializeField] int betStep = 5;
     [SerializeField] int minBet = 1;
+
+    [SerializeField]
+    private TMP_Text _resultsText;
 
     [Header("Loot box")]
     public float lootBoxChance = 10f;
@@ -86,6 +94,8 @@ public class Casino : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E)) ResetLootBoxChance();   // placeholder for a real event
         if (Input.GetKeyDown(KeyCode.R) && isGameOver) NewGame();
+        
+        UpdateUI();
     }
 
     // ------------------------------------------------------------- game flow
@@ -93,8 +103,7 @@ public class Casino : MonoBehaviour
     public void NewGame()
     {
         StopAllCoroutines();
-
-        moneyAmount = startingMoney;
+        
         betAmount = Mathf.Min(startingBet, moneyAmount, MaxBet);
         moneyAmount -= betAmount;
 
@@ -190,7 +199,26 @@ public class Casino : MonoBehaviour
 
     IEnumerator ResolveRound(RoundResult result, int guessIndex)
     {
+        _resultsText.gameObject.SetActive(true);
+        _resultsText.text = $"{result}!\nPlease wait for the next round";
+
+        switch (result)
+        {
+            case RoundResult.Win:
+                _resultsText.color = Color.green;
+                break;
+            
+            case RoundResult.Draw:
+                _resultsText.color = Color.yellow;
+                break;
+            
+            case RoundResult.Lose:
+                _resultsText.color = Color.red;
+                break;
+        }
+        
         yield return new WaitForSeconds(revealDuration);
+        _resultsText.gameObject.SetActive(false);
 
         int stake = betAmount;
         betAmount = 0;
@@ -290,8 +318,8 @@ public class Casino : MonoBehaviour
 
     void UpdateUI()
     {
-        moneyText.SetText(moneyAmount.ToString());
-        betText.SetText(betAmount.ToString());
+        moneyText.SetText("Tokens available: " + moneyAmount.ToString());
+        betText.SetText("Bet tokens: " + betAmount.ToString());
         lootText.SetText(lootBoxChance.ToString("F2") + "%");
     }
 }
