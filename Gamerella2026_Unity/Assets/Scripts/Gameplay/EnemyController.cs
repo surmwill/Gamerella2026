@@ -18,6 +18,9 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField]
     private float _knockbackLinearDampening = 0.15f;
+
+    [SerializeField]
+    private float _knockbackSpinsPerSecond = 1f;
     
     [Header("Stats")]
     [SerializeField]
@@ -52,12 +55,12 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // If we're not knocked back do movement like normal
         if (!_knockedBackSequence?.IsActive() ?? true)
         {
             DoMovement();
+            FacePlayer();
         }
-        
-        FacePlayer();
     }
 
     private void DoMovement()
@@ -73,8 +76,6 @@ public class EnemyController : MonoBehaviour
 
     public void OnAttackedByPlayer(PlayerController player)
     {
-        Debug.Log("ATTACKED");
-        
         Health = Mathf.Max(Health - player.AttackDamage, 0f);
         if (Health <= 0f)
         {
@@ -82,7 +83,6 @@ public class EnemyController : MonoBehaviour
             return;
         }
         
-        Debug.Log("KNOCKED BACK");
         ApplyKnockbackFromPlayer(player);
     }
 
@@ -115,11 +115,17 @@ public class EnemyController : MonoBehaviour
         _enemyRigidbody.linearDamping = _knockbackLinearDampening;
         _enemyRigidbody.AddForce(rawDirection * player.KnockbackForce, ForceMode2D.Impulse);
 
+        // Disable the collider while spinning out
         _collider.enabled = false;
+
+        float baseSpins = player.KnockbackDuration * _knockbackSpinsPerSecond;
+        float extraSpins = Random.value * 0.5f * (Random.value >= 0.5f ? 1f : -1f);
+        
         
         // Switch back to using linear velocity
         _knockedBackSequence = DOTween.Sequence()
             .AppendInterval(player.KnockbackDuration)
+            .Join(transform.DOLocalRotate(new Vector3(0, 0, 360f * baseSpins), baseSpins + extraSpins, RotateMode.FastBeyond360).SetEase(Ease.Linear))
             .OnKill(() =>
             {
                 _enemyRigidbody.linearDamping = 0f;
