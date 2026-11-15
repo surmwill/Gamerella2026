@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using static EndGameScreen;
 
 public class Game : MonoBehaviour
 {
@@ -18,8 +20,6 @@ public class Game : MonoBehaviour
     private Transform _lootboxesTransform = null;
 
     public float ElapsedTimeSeconds => Time.realtimeSinceStartup - _gameStartedSeconds;
-
-    private float _gameStartedSeconds;
     
     public static Game Instance
     {
@@ -48,6 +48,21 @@ public class Game : MonoBehaviour
     public GameModifiers GameModifiers => _gameModifiers;
     
     public Transform LootboxesTransform => _lootboxesTransform;
+
+    private float _gameStartedSeconds;
+
+    private Action<EndGameData> _onEndGame;
+    
+    public void Init(Action<EndGameData> onEndGame)
+    {
+        _onEndGame = onEndGame;
+    }
+
+    public void EndGame()
+    {
+        Destroy(gameObject);
+        _onEndGame?.Invoke(new EndGameData(ElapsedTimeSeconds));
+    }
     
     private static Game _instance;
     

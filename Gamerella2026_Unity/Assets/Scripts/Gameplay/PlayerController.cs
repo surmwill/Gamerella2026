@@ -124,8 +124,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttacked(EnemyController enemy)
     {
-        Debug.Log("On attacked " + CanAttack);
-        
         // Deflect if we can attack
         if (CanAttack)
         {
@@ -181,7 +179,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDie()
     {
-        // Animation?
-        // End game?
+        Game.Instance.EndGame();
     }
 }

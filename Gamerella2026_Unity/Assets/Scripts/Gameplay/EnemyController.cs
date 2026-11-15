@@ -15,15 +15,11 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private Lootbox _lootboxPrefab = null;
-
-    [SerializeField]
-    private float _lootboxDropChance = 0.05f;
     
     [SerializeField]
     private float _knockbackLinearDampening = 0.15f;
     
     [Header("Stats")]
-    [ReadOnly]
     [SerializeField]
     private float _health;
     
@@ -94,7 +90,7 @@ public class EnemyController : MonoBehaviour
         _knockedBackSequence?.Kill();
         Game.Instance.EnemySpawner.CleanupEnemy(this);
 
-        if (Random.value < _lootboxDropChance)
+        if (Random.value < Lootbox.LootboxDropChance)
         {
             Lootbox lootbox = Instantiate(_lootboxPrefab, Game.Instance.LootboxesTransform);
             lootbox.transform.position = transform.position;
@@ -106,8 +102,6 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     private void ApplyKnockback(Vector3 damageSourcePosition, float knockbackForce, float knockbackDuration)
     {
-        Debug.Log("knockback applied");
-        
         Vector3 currentPos = transform.position;
         Vector3 rawDirection = (currentPos - damageSourcePosition).normalized;
         

@@ -2,11 +2,12 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-using static GameModifiers;
 using static LootBoxConfigurationSO;
 
 public class Lootbox : MonoBehaviour
 {
+    public const float LootboxDropChance = 0.05f;
+    
     [SerializeField]
     private LootBoxConfigurationSO _lootBoxConfiguration = null;
     
