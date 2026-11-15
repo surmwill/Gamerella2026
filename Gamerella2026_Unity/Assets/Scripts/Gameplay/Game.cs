@@ -29,6 +29,9 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Transform _hitTestTransform = null;
     
+    [SerializeField]
+    private Casino _casino = null;
+    
     [SerializeField] 
     private EventReference _soundtrackReference;
 
@@ -51,6 +54,8 @@ public class Game : MonoBehaviour
             return _instance;
         }
     }
+
+    public Casino Casino => _casino;
     
     public HitTextPool HitTextPool => _hitTextPool;
 

@@ -19,8 +19,8 @@ public class Lootbox : MonoBehaviour
             return;
         }
         
-        // TODO: get percent chance
-        bool isPositiveEffect = true;
+        bool isPositiveEffect = Random.value <= Game.Instance.Casino.lootBoxChance;
+        Game.Instance.Casino.ResetLootBoxChance();
 
         ModifierValue modifier = _lootBoxConfiguration.Modifiers[Random.Range(0, _lootBoxConfiguration.Modifiers.Count)];
         Game.Instance.GameModifiers.ApplyModifier(modifier.Type, modifier.Value * (isPositiveEffect ? 1f : -1f));

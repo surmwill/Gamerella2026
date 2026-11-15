@@ -32,9 +32,6 @@ public class GameUI : MonoBehaviour
     [SerializeField]
     private Color _badModifierColor = Color.red;
 
-    // TODO: replace with actual value
-    private float _goodChance = 0.5f;
-
     private void Start()
     {
         UpdateUI();
@@ -53,8 +50,8 @@ public class GameUI : MonoBehaviour
         _numTokensText.text = $"Tokens: {Game.Instance.Player.NumTokens}";
         
         // Lootbox chance
-        _lootboxPct.text = $"Next Lootbox Is Positive? {_goodChance * 100f:0}%";
-        _lootboxPct.color = _goodChance >= 0.5f ? _goodModifierColor : _badModifierColor;
+        _lootboxPct.text = $"Next Lootbox Is Positive? {Game.Instance.Casino.lootBoxChance}%";
+        _lootboxPct.color = Game.Instance.Casino.lootBoxChance >= 0.5f ? _goodModifierColor : _badModifierColor;
         
         // Elapsed time
         _elapsedTimeText.text = $"Interval: {Game.Instance.EnemySpawner.NumIntervals}, Elapsed Time: {EndGameScreen.GetFormattedTimeString(Game.Instance.ElapsedTimeSeconds)}";

@@ -864,6 +864,7 @@ MonoBehaviour:
   _lootboxesTransform: {fileID: 7513540821792993370}
   _hitTextPool: {fileID: 1726921865151185069}
   _hitTestTransform: {fileID: 1913193683403931791}
+  _casino: {fileID: 5474527414386749320}
   _soundtrackReference:
     Guid:
       Data1: -548591119
@@ -5311,6 +5312,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed2e25412e3d9a94cbe1a8b60381139e, type: 3}
+--- !u!114 &5474527414386749320 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8265702715715227289, guid: ed2e25412e3d9a94cbe1a8b60381139e, type: 3}
+  m_PrefabInstance: {fileID: 4128887705748168977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4e5cf1445b1f04bac2bba3f1f6d87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Casino
 --- !u!224 &8328110096536090271 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5395212831295035278, guid: ed2e25412e3d9a94cbe1a8b60381139e, type: 3}
