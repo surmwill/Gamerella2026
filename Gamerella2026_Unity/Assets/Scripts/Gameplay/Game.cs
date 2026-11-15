@@ -79,4 +79,12 @@ public class Game : MonoBehaviour
     {
         _gameStartedSeconds = Time.realtimeSinceStartup;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EndGame();
+        }
+    }
 }
