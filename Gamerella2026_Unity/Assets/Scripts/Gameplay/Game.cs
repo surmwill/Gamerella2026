@@ -3,10 +3,11 @@ using FMOD.Studio;
 using FMODUnity;
 using Gameplay;
 using UnityEngine;
+
 using static EndGameScreen;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-public class Game : MonoBehaviour
+public class Game : SceneSingleton<Game>
 {
     [SerializeField]
     private PlayerController _playerController = null;
@@ -41,24 +42,6 @@ public class Game : MonoBehaviour
     private EventInstance _soundtrackInstance;
     
     private EventInstance _ambienceInstance;
-    
-    public static Game Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindFirstObjectByType<Game>();
-            }
-
-            if (_instance == null)
-            {
-                Debug.LogError($"Expected component of type {nameof(Game)}");
-            }
-
-            return _instance;
-        }
-    }
 
     public Casino Casino => _casino;
     
@@ -97,17 +80,6 @@ public class Game : MonoBehaviour
         
         Destroy(gameObject);
         _onEndGame?.Invoke(new EndGameData(ElapsedTimeSeconds));
-    }
-    
-    private static Game _instance;
-    
-    private void Awake()
-    {
-        _instance = GetComponent<Game>();
-        if (_instance == null)
-        {
-            Debug.LogError($"Expected component of type {nameof(Game)}");
-        }
     }
 
     private void Start()

@@ -63,6 +63,11 @@ public class EnemyFactory : MonoBehaviour
 
         EditorApplication.delayCall += () =>
         {
+            if (_enemiesPool == null)
+            {
+                return;
+            }
+            
             for (int i = _enemiesPool.childCount; i > _numEnemiesInPool; i--)
             {
                 DestroyImmediate(_enemiesPool.GetChild(0).gameObject);

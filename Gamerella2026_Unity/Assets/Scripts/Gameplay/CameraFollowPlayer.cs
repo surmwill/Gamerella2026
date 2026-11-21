@@ -1,4 +1,3 @@
-using ProphetAR;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]

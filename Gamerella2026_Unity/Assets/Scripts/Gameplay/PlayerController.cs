@@ -1,7 +1,6 @@
 using System;
 using DG.Tweening;
 using FMODUnity;
-using ProphetAR;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using ProphetAR;
 using TMPro;
 using UnityEngine;
 using static EnemyConfigurationsSO;

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static GameModifiers;
 
-[CreateAssetMenu(menuName = "LootBox Configuration")]
+using static GameModifiers;
+using static MenuNames;
+
+[CreateAssetMenu(menuName = GameAssetMenu + "LootBox Configuration")]
 public class LootBoxConfigurationSO : ScriptableObject
 {
     [SerializeField]

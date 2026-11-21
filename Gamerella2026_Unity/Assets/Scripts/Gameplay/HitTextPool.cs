@@ -60,6 +60,11 @@ namespace Gameplay
 
             EditorApplication.delayCall += () =>
             {
+                if (_hitTextPool == null)
+                {
+                    return;
+                }
+                
                 for (int i = _hitTextPool.childCount; i > _numInPool; i--)
                 {
                     DestroyImmediate(_hitTextPool.GetChild(0).gameObject);
