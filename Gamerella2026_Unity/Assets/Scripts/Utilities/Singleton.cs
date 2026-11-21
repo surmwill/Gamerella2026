@@ -1,7 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// A single globally accessible instance of a MonoBehaviour
+/// A single globally accessible instance of a MonoBehaviour that is not expected to be destroyed for the entirety
+/// of the program (DontDestroyOnLoad)
 /// </summary>
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -22,10 +23,16 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindFirstObjectByType<T>();
+                if (_instance != null)
+                {
+                    Debug.LogWarning($"Singleton `{nameof(T)}` assigned through FindFirstObjectByType");
+                    DontDestroyOnLoad(_instance.gameObject);
+                }
             }
 
             if (_instance == null)
             {
+                Debug.LogWarning($"Singleton `{nameof(T)}` assigned through new GameObject creation");
                 GameObject singletonObject = new GameObject();
                 _instance = singletonObject.AddComponent<T>();
                 singletonObject.name = $"Singleton ({typeof(T)})";
@@ -49,9 +56,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         // This GameObject manages the instance
         _instance = GetComponent<T>();
         DontDestroyOnLoad(gameObject);
-
-        // static variable could be left as true from last OnDestroy
-        _isShuttingDown = false;
     }
 
     protected virtual void OnDestroy()
