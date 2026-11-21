@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEngine;
 
 using static EnemyFactory;
+using static MenuNames;
 
-
-[CreateAssetMenu(menuName = "EnemyConfigurations")]
+[CreateAssetMenu(menuName = GameAssetMenu + "EnemyConfigurations")]
 public class EnemyConfigurationsSO : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField]
