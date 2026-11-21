@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7513540821792993370}
   m_Layer: 0
-  m_Name: Lootboxes
+  m_Name: SpawnedLootboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1913193683403931791}
   m_Layer: 0
-  m_Name: HitTexts
+  m_Name: SpawnedHitTexts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -399,7 +399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 653382006234104503}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: SpawnedEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,6 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2837829669605680045}
+  - component: {fileID: 7277857468930542029}
   m_Layer: 0
   m_Name: EnemiesPool
   m_TagString: Untagged
@@ -551,6 +552,21 @@ Transform:
   - {fileID: 4284611297322761088}
   m_Father: {fileID: 8717378295900111758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7277857468930542029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7257524849923874419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b24d51f2586b1478b1e51bc24d211c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemiesController
+  _enemiesPool: {fileID: 2837829669605680045}
+  _enemyPrefab: {fileID: 5217676398875167500, guid: 018cf8e83e948bc449be3449001ef5ec, type: 3}
+  _numEnemiesInPool: 100
 --- !u!1 &7556592905474998541
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,7 +826,6 @@ GameObject:
   - component: {fileID: 8717378295900111758}
   - component: {fileID: 1782893467341843403}
   - component: {fileID: 4313577755373785883}
-  - component: {fileID: 6062935697853644440}
   - component: {fileID: 3087635731314638365}
   - component: {fileID: 8816301082831325170}
   m_Layer: 0
@@ -834,15 +849,15 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7842336250498606856}
+  - {fileID: 5468595242822975427}
   - {fileID: 6418309862531224599}
   - {fileID: 8205112614030754889}
-  - {fileID: 653382006234104503}
-  - {fileID: 2837829669605680045}
   - {fileID: 1018477461705502925}
-  - {fileID: 7513540821792993370}
-  - {fileID: 5468595242822975427}
   - {fileID: 5474216463934562247}
+  - {fileID: 2837829669605680045}
   - {fileID: 1913193683403931791}
+  - {fileID: 653382006234104503}
+  - {fileID: 7513540821792993370}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1782893467341843403
@@ -896,21 +911,6 @@ MonoBehaviour:
   _extraPlayerDamage: 0
   _extraEnemyDamage: 0
   _extraPlayerAttacksPerSecond: 0
---- !u!114 &6062935697853644440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8916874648815834464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8b24d51f2586b1478b1e51bc24d211c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemiesController
-  _enemiesPool: {fileID: 2837829669605680045}
-  _enemyPrefab: {fileID: 5217676398875167500, guid: 018cf8e83e948bc449be3449001ef5ec, type: 3}
-  _numEnemiesInPool: 100
 --- !u!114 &3087635731314638365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,7 +923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17dd595b1ecaef14a8a38b268cf60dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
-  _enemyFactory: {fileID: 6062935697853644440}
+  _enemyFactory: {fileID: 7277857468930542029}
 --- !u!114 &8816301082831325170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,7 +937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   _enemyConfigurations: {fileID: 11400000, guid: 30aa87830525bab4886fd5bfb6c5b452, type: 2}
-  _enemyFactory: {fileID: 6062935697853644440}
+  _enemyFactory: {fileID: 7277857468930542029}
   _enemyManager: {fileID: 3087635731314638365}
   _enemiesTransform: {fileID: 653382006234104503}
   _spawnIntervals:
