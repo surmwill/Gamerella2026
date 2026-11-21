@@ -45,6 +45,5 @@ public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
         // This GameObject manages the instance
         _instance = GetComponent<T>();
-        DontDestroyOnLoad(gameObject);
     }
 }
