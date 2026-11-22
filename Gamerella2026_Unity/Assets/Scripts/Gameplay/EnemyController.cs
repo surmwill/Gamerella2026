@@ -94,10 +94,10 @@ public class EnemyController : MonoBehaviour
     public void OnAttackedByPlayer(PlayerController player)
     {
         // Show the damage
-        ShowHitText(player.AttackDamage.ToString());
+        ShowHitText(player.Stats.AttackDamage.ToString());
         
         // Subtract the health
-        Health = Mathf.Max(Health - player.AttackDamage, 0f);
+        Health = Mathf.Max(Health - player.Stats.AttackDamage, 0f);
         if (Health <= 0f)
         {
             Kill();
@@ -163,17 +163,17 @@ public class EnemyController : MonoBehaviour
         // Switch to using force
         _enemyRigidbody.linearVelocity = Vector3.zero;
         _enemyRigidbody.linearDamping = _knockbackLinearDampening;
-        _enemyRigidbody.AddForce(rawDirection * player.KnockbackForce, ForceMode2D.Impulse);
+        _enemyRigidbody.AddForce(rawDirection * player.Stats.KnockbackForce, ForceMode2D.Impulse);
 
         // Disable the collider while spinning out
         _collider.enabled = false;
 
-        float baseSpins = player.KnockbackDuration * _knockbackSpinsPerSecond;
+        float baseSpins = player.Stats.KnockbackDuration * _knockbackSpinsPerSecond;
         float extraSpins = Random.value * 0.5f * (Random.value >= 0.5f ? 1f : -1f);
         
         // Switch back to using linear velocity
         _knockedBackSequence = DOTween.Sequence()
-            .AppendInterval(player.KnockbackDuration)
+            .AppendInterval(player.Stats.KnockbackDuration)
             .Join(transform.DOLocalRotate(new Vector3(0, 0, 360f * baseSpins), baseSpins + extraSpins, RotateMode.FastBeyond360).SetEase(Ease.Linear))
             .OnKill(() =>
             {

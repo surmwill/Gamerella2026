@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using FMODUnity;
+using Gameplay;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,29 +11,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private CircleCollider2D _attackArea = null;
-    
-    [Header("Stats")]
-    [ReadOnly]
-    [SerializeField]
-    private int _health = 100;
-    
-    [SerializeField]
-    private float _baseScaleVelocity = 20f;
-    
-    [SerializeField]
-    private int _baseAttackDamage = 10;
-
-    [SerializeField]
-    private float _baseAttacksPerSecond = 0.1f;
-
-    [SerializeField]
-    private int _baseHealth = 100;
-
-    [SerializeField]
-    private float _knockbackForce = 10f;
-    
-    [SerializeField]
-    private float _knockbackDuration = 0.25f;
 
     [SerializeField]
     private Transform _model = null;
@@ -49,7 +27,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private EventReference _footstepSoundReference;
     
+    [SerializeField]
+    private PlayerConfigurationSO _playerConfigurationSO = null;
+    
+    [Header("Stats")]
+    [SerializeField]
+    private PlayerStats _playerStats = null;
+    
     public event Action<int> OnPlayerTokensUpdated;
+
+    public PlayerStats Stats => _playerStats;
+    
+    public PlayerConfigurationSO Config => _playerConfigurationSO;
     
     public int NumTokens 
     { 
@@ -63,29 +52,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    public int Health
-    {
-        get => _health; 
-        private set => _health = value;
-    }
     
     public bool IsDead { get; set; } = false;
 
-    public int BaseHealth => _baseHealth;
-    
-    public float AttackDamage => Mathf.Max(_baseAttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage, 1f);
-    
-    public float KnockbackForce => _knockbackForce;
-    
-    public float KnockbackDuration => _knockbackDuration;
-
-    public bool CanAttack => Game.Instance.ElapsedTimeSeconds - _timeOfLastAttack >= AttackCooldownSeconds;
-    
-    // Note: multiplicative
-    private float ScaleVelocity => _baseScaleVelocity * Game.Instance.GameModifiers.ExtraScalePlayerVelocity;
-    
-    private float AttackCooldownSeconds => 1f / (_baseAttacksPerSecond + Game.Instance.GameModifiers.ExtraPlayerAttacksPerSecond);
+    public bool CanAttack => Game.Instance.ElapsedTimeSeconds - _timeOfLastAttack >= Stats.ModifiedAttackCooldownSeconds;
 
     private const int MaxEnemiesDetectedInAttackRange = 10; 
     
@@ -102,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        Health = _baseHealth;
+        _playerStats.Init(_playerConfigurationSO);
     }
 
     private void FixedUpdate()
@@ -117,7 +87,7 @@ public class PlayerController : MonoBehaviour
             TryAttackClosestEnemy();
         }
         
-        _playerRigidbody.linearVelocity = _moveInput * ScaleVelocity;
+        _playerRigidbody.linearVelocity = _moveInput * _playerStats.MoveVelocity;
 
         // Face correction direction
         if (Mathf.Abs(_moveInput.x) > 0)
@@ -175,8 +145,8 @@ public class PlayerController : MonoBehaviour
         }
         
         // Otherwise we take the hit
-        Health = Math.Max(Health - enemy.AttackDamage, 0);
-        if (Health <= 0)
+        _playerStats.Health = Math.Max(_playerStats.Health - enemy.AttackDamage, 0);
+        if (_playerStats.Health <= 0)
         {
             OnDie();
         }
