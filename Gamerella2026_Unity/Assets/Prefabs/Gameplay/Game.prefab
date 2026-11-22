@@ -940,52 +940,7 @@ MonoBehaviour:
   _enemyFactory: {fileID: 7277857468930542029}
   _enemyManager: {fileID: 3087635731314638365}
   _enemiesTransform: {fileID: 653382006234104503}
-  _spawnIntervals:
-  - _startIntervalSeconds: 0
-    _endIntervalSecondsExclusive: 15
-    _spawnEnemyTypes:
-    - _enemyType: 0
-      _numToSpawn: 15
-  - _startIntervalSeconds: 15
-    _endIntervalSecondsExclusive: 30
-    _spawnEnemyTypes:
-    - _enemyType: 0
-      _numToSpawn: 20
-    - _enemyType: 1
-      _numToSpawn: 5
-  - _startIntervalSeconds: 30
-    _endIntervalSecondsExclusive: 45
-    _spawnEnemyTypes:
-    - _enemyType: 0
-      _numToSpawn: 30
-    - _enemyType: 1
-      _numToSpawn: 10
-    - _enemyType: 2
-      _numToSpawn: 5
-  - _startIntervalSeconds: 45
-    _endIntervalSecondsExclusive: 60
-    _spawnEnemyTypes:
-    - _enemyType: 0
-      _numToSpawn: 30
-    - _enemyType: 1
-      _numToSpawn: 15
-    - _enemyType: 2
-      _numToSpawn: 5
-    - _enemyType: 3
-      _numToSpawn: 3
-  - _startIntervalSeconds: 60
-    _endIntervalSecondsExclusive: 75
-    _spawnEnemyTypes:
-    - _enemyType: 0
-      _numToSpawn: 30
-    - _enemyType: 1
-      _numToSpawn: 30
-    - _enemyType: 2
-      _numToSpawn: 10
-    - _enemyType: 3
-      _numToSpawn: 5
-    - _enemyType: 4
-      _numToSpawn: 2
+  _spawnIntervalsConfiguration: {fileID: 11400000, guid: cdbf33393e80360459376bc7f0aabcee, type: 2}
   _enemySpawnPoints:
   - {fileID: 109869249759261546}
   - {fileID: 2978661739151161575}

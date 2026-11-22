@@ -51,13 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _playerRigidbody: {fileID: 1369632976829333661}
   _attackArea: {fileID: 5668339629760343544}
-  _health: 1000
-  _baseScaleVelocity: 30
-  _baseAttackDamage: 10
-  _baseAttacksPerSecond: 10
-  _baseHealth: 100
-  _knockbackForce: 25
-  _knockbackDuration: 1
   _model: {fileID: 1442746109015540789}
   _playerAnimator: {fileID: 2058101081966719637}
   _onAttackSoundReference:
@@ -81,6 +74,14 @@ MonoBehaviour:
       Data3: 61427368
       Data4: -1216563141
     Path: event:/Players/Player_1/Player_Footsteps
+  _playerConfigurationSO: {fileID: 11400000, guid: 62e7da74120d7aa4e86934e2c7b14980, type: 2}
+  _playerStats:
+    _health: 0
+    _attacksPerSecond: 0
+    _attackDamage: 0
+    _moveVelocity: 0
+    _knockbackForce: 0
+    _knockbackDuration: 0
 --- !u!50 &1369632976829333661
 Rigidbody2D:
   serializedVersion: 5

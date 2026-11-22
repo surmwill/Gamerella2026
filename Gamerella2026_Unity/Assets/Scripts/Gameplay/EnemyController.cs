@@ -6,6 +6,9 @@ using static EnemyConfigurationsSO;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
+    private EnemyConfigurationsSO _enemyConfigurationsSO = null;
+    
+    [SerializeField]
     private SpriteRenderer _spriteRenderer = null;
 
     [SerializeField]
@@ -22,48 +25,30 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField]
     private SkinnedMeshRenderer _enemyRenderer = null;
-    
-    [SerializeField]
-    private float _knockbackLinearDampening = 0.15f;
 
-    [SerializeField]
-    private float _knockbackSpinsPerSecond = 1f;
-
-    [SerializeField]
-    private float _hitTextOffsetY = 0f;
-
-    [SerializeField]
-    private float _hitTextDuration = 1f;
-    
     [Header("Stats")]
     [SerializeField]
-    private float _health;
+    [ReadOnly]
+    private EnemyStats _enemyStats;
+
+    public EnemyConfigurationsSO GlobalConfig => _enemyConfigurationsSO;
     
-    [SerializeField]
-    private EnemyBaseStats _baseStats = null;
-
-    public float Health
-    {
-        get => _health; 
-        private set => _health = value;
-    }
-
-    public int AttackDamage => Mathf.Max(_baseStats.BaseAttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage, 1);
+    public EnemyConfiguration LocalConfig { get; private set; }
+    
+    public EnemyStats Stats => _enemyStats;
+    
+    private PlayerController Player => Game.Instance.Player;
     
     public Collider2D Collider => _collider;
-
-    private float ScaleVelocity => _baseStats.BaseScaleVelocity * Game.Instance.GameModifiers.ExtraScaleEnemyVelocity * (Player.IsDead ? 0f: 1f);
-
-    private PlayerController Player => Game.Instance.Player;
         
     private Sequence _knockedBackSequence = null;
-    
     private Sequence _hitTestSequence = null;
     
     public void SpawnWithConfiguration(EnemyConfiguration enemyConfiguration)
     {
-        _baseStats = enemyConfiguration.BaseStats;
-        Health = enemyConfiguration.BaseStats.BaseHealth;
+        LocalConfig = enemyConfiguration;
+        
+        _enemyStats.Init(enemyConfiguration.BaseStats);
 
         _enemyRenderer.material = enemyConfiguration.PrefabConfig.Material;
         
@@ -83,7 +68,7 @@ public class EnemyController : MonoBehaviour
     private void DoMovement()
     {
         Vector3 toPlayer = (Player.transform.position - transform.position).normalized;
-        _enemyRigidbody.linearVelocity = toPlayer * ScaleVelocity; 
+        _enemyRigidbody.linearVelocity = toPlayer * Stats.ModifiedMoveVelocity; 
     }
 
     private void FacePlayer()
@@ -94,11 +79,11 @@ public class EnemyController : MonoBehaviour
     public void OnAttackedByPlayer(PlayerController player)
     {
         // Show the damage
-        ShowHitText(player.AttackDamage.ToString());
+        ShowHitText(player.Stats.AttackDamage.ToString());
         
         // Subtract the health
-        Health = Mathf.Max(Health - player.AttackDamage, 0f);
-        if (Health <= 0f)
+        Stats.Health = Mathf.Max(Stats.Health - player.Stats.AttackDamage, 0);
+        if (Stats.Health <= 0)
         {
             Kill();
             return;
@@ -116,13 +101,13 @@ public class EnemyController : MonoBehaviour
         hitText.transform.SetParent(Game.Instance.HitTestTransform);
         
         // Ensure it's rendered on top
-        hitText.transform.position = transform.position.WithY(transform.position.y + _hitTextOffsetY).WithZ(-0.003f);
+        hitText.transform.position = transform.position.WithY(transform.position.y + GlobalConfig.HitTextOffsetY).WithZ(-0.003f);
 
         hitText.text = text;
         hitText.alpha = 1.0f;
         
         _hitTestSequence = DOTween.Sequence()
-            .Append(hitText.DOFade(0f, _hitTextDuration))
+            .Append(hitText.DOFade(0f, GlobalConfig.HitTextDuration))
             .OnKill(() =>
             {
                 if (Game.Instance != null)
@@ -134,7 +119,7 @@ public class EnemyController : MonoBehaviour
 
     private void Kill()
     {
-        Player.NumTokens += _baseStats.TokensDropped;
+        Player.NumTokens += Stats.TokensDropped;
         
         _knockedBackSequence?.Kill();
         
@@ -162,18 +147,18 @@ public class EnemyController : MonoBehaviour
         
         // Switch to using force
         _enemyRigidbody.linearVelocity = Vector3.zero;
-        _enemyRigidbody.linearDamping = _knockbackLinearDampening;
-        _enemyRigidbody.AddForce(rawDirection * player.KnockbackForce, ForceMode2D.Impulse);
+        _enemyRigidbody.linearDamping = GlobalConfig.KnockbackLinearDampening;
+        _enemyRigidbody.AddForce(rawDirection * player.Stats.KnockbackForce, ForceMode2D.Impulse);
 
         // Disable the collider while spinning out
         _collider.enabled = false;
 
-        float baseSpins = player.KnockbackDuration * _knockbackSpinsPerSecond;
+        float baseSpins = player.Stats.KnockbackDuration * GlobalConfig.KnockbackSpinsPerSecond;
         float extraSpins = Random.value * 0.5f * (Random.value >= 0.5f ? 1f : -1f);
         
         // Switch back to using linear velocity
         _knockedBackSequence = DOTween.Sequence()
-            .AppendInterval(player.KnockbackDuration)
+            .AppendInterval(player.Stats.KnockbackDuration)
             .Join(transform.DOLocalRotate(new Vector3(0, 0, 360f * baseSpins), baseSpins + extraSpins, RotateMode.FastBeyond360).SetEase(Ease.Linear))
             .OnKill(() =>
             {

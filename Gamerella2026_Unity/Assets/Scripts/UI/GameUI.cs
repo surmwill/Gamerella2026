@@ -45,8 +45,8 @@ public class GameUI : MonoBehaviour
     private void UpdateUI()
     {
         // Health bar and tokens
-        _healthBar.fillAmount = (float) Game.Instance.Player.Health / Game.Instance.Player.BaseHealth;
-        _healthText.text = $"Health: {Game.Instance.Player.Health}";
+        _healthBar.fillAmount = (float) Game.Instance.Player.Stats.Health / Game.Instance.Player.Config.BaseHealth;
+        _healthText.text = $"Health: {Game.Instance.Player.Stats.Health}";
         _numTokensText.text = $"Tokens: {Game.Instance.Player.NumTokens}";
         
         // Lootbox chance
@@ -54,7 +54,7 @@ public class GameUI : MonoBehaviour
         _lootboxPct.color = Game.Instance.Casino.lootBoxChance >= 0.5f ? _goodModifierColor : _badModifierColor;
         
         // Elapsed time
-        _elapsedTimeText.text = $"Interval: {Game.Instance.EnemySpawner.NumIntervals}, Elapsed Time: {EndGameScreen.GetFormattedTimeString(Game.Instance.ElapsedTimeSeconds)}";
+        _elapsedTimeText.text = $"Interval: {Game.Instance.EnemySpawner.SpawnIntervalNum}, Elapsed Time: {EndGameScreen.GetFormattedTimeString(Game.Instance.ElapsedTimeSeconds)}";
 
         // Last loot text
         List<(ModifierType ModifierType, float Value)> lastModifiers = Game.Instance.GameModifiers.LastModifiers;

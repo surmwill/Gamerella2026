@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4e41a36e6c6d9458e61de1a43f3fa3, type: 3}
+  m_Name: SpawnIntervalsConfiguration
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnIntervalsConfigurationSO
+  _spawnIntervals:
+  - _startIntervalSeconds: 0
+    _endIntervalSecondsExclusive: 15
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 15
+    - _enemyType: 1
+      _numToSpawn: 0
+    - _enemyType: 2
+      _numToSpawn: 0
+    - _enemyType: 3
+      _numToSpawn: 0
+    - _enemyType: 4
+      _numToSpawn: 0
+  - _startIntervalSeconds: 15
+    _endIntervalSecondsExclusive: 30
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 20
+    - _enemyType: 1
+      _numToSpawn: 5
+    - _enemyType: 2
+      _numToSpawn: 0
+    - _enemyType: 3
+      _numToSpawn: 0
+    - _enemyType: 4
+      _numToSpawn: 0
+  - _startIntervalSeconds: 30
+    _endIntervalSecondsExclusive: 45
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 30
+    - _enemyType: 1
+      _numToSpawn: 10
+    - _enemyType: 2
+      _numToSpawn: 5
+    - _enemyType: 3
+      _numToSpawn: 0
+    - _enemyType: 4
+      _numToSpawn: 0
+  - _startIntervalSeconds: 45
+    _endIntervalSecondsExclusive: 60
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 30
+    - _enemyType: 1
+      _numToSpawn: 15
+    - _enemyType: 2
+      _numToSpawn: 5
+    - _enemyType: 3
+      _numToSpawn: 3
+    - _enemyType: 4
+      _numToSpawn: 0
+  - _startIntervalSeconds: 60
+    _endIntervalSecondsExclusive: 75
+    _spawnEnemyTypes:
+    - _enemyType: 0
+      _numToSpawn: 30
+    - _enemyType: 1
+      _numToSpawn: 15
+    - _enemyType: 2
+      _numToSpawn: 10
+    - _enemyType: 3
+      _numToSpawn: 5
+    - _enemyType: 4
+      _numToSpawn: 2
