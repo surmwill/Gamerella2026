@@ -54,7 +54,7 @@ public class GameUI : MonoBehaviour
         _lootboxPct.color = Game.Instance.Casino.lootBoxChance >= 0.5f ? _goodModifierColor : _badModifierColor;
         
         // Elapsed time
-        _elapsedTimeText.text = $"Interval: {Game.Instance.EnemySpawner.NumIntervals}, Elapsed Time: {EndGameScreen.GetFormattedTimeString(Game.Instance.ElapsedTimeSeconds)}";
+        _elapsedTimeText.text = $"Interval: {Game.Instance.EnemySpawner.SpawnIntervalNum}, Elapsed Time: {EndGameScreen.GetFormattedTimeString(Game.Instance.ElapsedTimeSeconds)}";
 
         // Last loot text
         List<(ModifierType ModifierType, float Value)> lastModifiers = Game.Instance.GameModifiers.LastModifiers;

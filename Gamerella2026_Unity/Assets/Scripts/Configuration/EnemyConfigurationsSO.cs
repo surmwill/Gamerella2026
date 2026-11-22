@@ -6,7 +6,7 @@ using UnityEngine;
 using static EnemyFactory;
 using static MenuNames;
 
-[CreateAssetMenu(menuName = GameAssetMenu + "EnemyConfigurations")]
+[CreateAssetMenu(menuName = GameAssetMenu + "Enemy Configurations")]
 public class EnemyConfigurationsSO : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField]
