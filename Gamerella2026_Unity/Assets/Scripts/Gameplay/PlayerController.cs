@@ -1,11 +1,13 @@
 using System;
 using DG.Tweening;
 using FMODUnity;
-using Gameplay;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerConfigurationSO _playerConfigurationSO = null;
+    
     [SerializeField]
     private Rigidbody2D _playerRigidbody = null;
 
@@ -27,11 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private EventReference _footstepSoundReference;
     
-    [SerializeField]
-    private PlayerConfigurationSO _playerConfigurationSO = null;
-    
     [Header("Stats")]
     [SerializeField]
+    [ReadOnly]
     private PlayerStats _playerStats = null;
     
     public event Action<int> OnPlayerTokensUpdated;
@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         }
         
         // Otherwise we take the hit
-        _playerStats.Health = Math.Max(_playerStats.Health - enemy.AttackDamage, 0);
+        _playerStats.Health = Math.Max(_playerStats.Health - enemy.Stats.AttackDamage, 0);
         if (_playerStats.Health <= 0)
         {
             OnDie();

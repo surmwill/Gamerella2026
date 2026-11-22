@@ -48,22 +48,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e1742d3e1776d479d4cc44bc8301ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  _enemyConfigurationsSO: {fileID: 11400000, guid: 30aa87830525bab4886fd5bfb6c5b452, type: 2}
   _spriteRenderer: {fileID: 3481134579726862018}
   _enemyRigidbody: {fileID: 1939253900053662335}
   _collider: {fileID: 3028397817672983370}
   _lootboxPrefab: {fileID: 3426569797909264099, guid: 70d8bdc86912c35429f34a84868a5325, type: 3}
   _model: {fileID: 6480998398790990005}
   _enemyRenderer: {fileID: 5057077223950232837}
-  _knockbackLinearDampening: 3
-  _knockbackSpinsPerSecond: 1
-  _hitTextOffsetY: 0
-  _hitTextDuration: 1
-  _health: 0
-  _baseStats:
-    _baseHealth: 0
-    _baseScaleVelocity: 10
-    _baseAttackDamage: 10
-    _tokensDropped: 1
+  _enemyStats:
+    _health: 0
+    _attackDamage: 0
+    _moveVelocity: 0
+    _tokensDropped: 0
 --- !u!50 &1939253900053662335
 Rigidbody2D:
   serializedVersion: 5

@@ -9,8 +9,34 @@ using static MenuNames;
 [CreateAssetMenu(menuName = GameAssetMenu + "Enemy Configurations")]
 public class EnemyConfigurationsSO : ScriptableObject, ISerializationCallbackReceiver
 {
+    [Header("Global")]
+    [Tooltip("Resistance to being knocked back")]
+    [SerializeField]
+    private float _knockbackLinearDampening = 3f;
+
+    [Tooltip("Spin speed while being knocked back")]
+    [SerializeField]
+    private float _knockbackSpinsPerSecond = 1f;
+
+    [Tooltip("Offset for damage text")]
+    [SerializeField]
+    private float _hitTextOffsetY = 0f;
+
+    [Tooltip("Time the damage text is shown")]
+    [SerializeField]
+    private float _hitTextDuration = 1f;
+    
+    [Header("Per Enemy")]
     [SerializeField]
     private List<EnemyConfiguration> _enemyConfigurations = null;
+    
+    public float KnockbackLinearDampening => _knockbackLinearDampening;
+    
+    public float KnockbackSpinsPerSecond => _knockbackSpinsPerSecond;
+    
+    public float HitTextOffsetY => _hitTextOffsetY;
+    
+    public float HitTextDuration => _hitTextDuration;
     
     public Dictionary<EnemyType, EnemyConfiguration> EnemyConfigs { get; private set; }
     
@@ -59,7 +85,7 @@ public class EnemyConfigurationsSO : ScriptableObject, ISerializationCallbackRec
         private int _baseHealth = 100;
 
         [SerializeField]
-        private float _baseScaleVelocity = 10f;
+        private float _baseMoveVelocity = 10f;
 
         [SerializeField]
         private int _baseAttackDamage = 10;
@@ -69,7 +95,7 @@ public class EnemyConfigurationsSO : ScriptableObject, ISerializationCallbackRec
 
         public int BaseHealth => _baseHealth;
         
-        public float BaseScaleVelocity => _baseScaleVelocity;
+        public float BaseMoveVelocity => _baseMoveVelocity;
 
         public int BaseAttackDamage => _baseAttackDamage;
         
