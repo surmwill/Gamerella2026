@@ -81,7 +81,7 @@ public class PlayerStats
     
     public int ModifiedAttackDamage => Mathf.Max(AttackDamage + Game.Instance.GameModifiers.ExtraPlayerDamage, 1); 
     
-    public float ModifiedMoveVelocity => MoveVelocity * Game.Instance.GameModifiers.ExtraScalePlayerVelocity;
+    public float ModifiedMoveVelocity => MoveVelocity * Game.Instance.GameModifiers.ExtraPlayerMoveVelocity;
     
     #endregion
 }

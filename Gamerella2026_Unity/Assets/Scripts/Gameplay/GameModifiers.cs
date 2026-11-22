@@ -4,10 +4,10 @@ using UnityEngine;
 public class GameModifiers : MonoBehaviour
 {
     [SerializeField]
-    private float _extraScalePlayerVelocity = 1f;
+    private float _extraScalePlayerMoveVelocity = 1f;
     
     [SerializeField]
-    private float _extraScaleEnemyVelocity = 1f;
+    private float _extraScaleEnemyMoveVelocity = 1f;
 
     [SerializeField]
     private int _extraPlayerDamage = 0;
@@ -22,7 +22,7 @@ public class GameModifiers : MonoBehaviour
 
     public static readonly Dictionary<ModifierType, string> GoodModifiersText = new()
     {
-        [ModifierType.PlayerAttackSpeed] = "Increased Player Attack Speed",
+        [ModifierType.PlayerAttacksPerSecond] = "Increased Player Attack Speed",
         [ModifierType.PlayerDamage] = "Increased Player Damage",
         [ModifierType.PlayerMoveSpeed] = "Increased Player Move Speed",
 
@@ -32,7 +32,7 @@ public class GameModifiers : MonoBehaviour
     
     public static readonly Dictionary<ModifierType, string> BadModifiersText = new()
     {
-        [ModifierType.PlayerAttackSpeed] = "Reduced Player Attack Speed",
+        [ModifierType.PlayerAttacksPerSecond] = "Reduced Player Attack Speed",
         [ModifierType.PlayerDamage] = "Reduced Player Damage",
         [ModifierType.PlayerMoveSpeed] = "Reduced Player Move Speed",
 
@@ -41,17 +41,17 @@ public class GameModifiers : MonoBehaviour
     };
     
     // Multiplicative with the player's velocity
-    public float ExtraScalePlayerVelocity
+    public float ExtraPlayerMoveVelocity
     {
-        get => _extraScalePlayerVelocity; 
-        set => _extraScalePlayerVelocity = value;
+        get => _extraScalePlayerMoveVelocity; 
+        set => _extraScalePlayerMoveVelocity = value;
     }
     
     // Multiplicative with the enemy's velocity
-    public float ExtraScaleEnemyVelocity
+    public float ExtraEnemyMoveVelocity
     {
-        get => _extraScaleEnemyVelocity;
-        set => _extraScaleEnemyVelocity = value;
+        get => _extraScaleEnemyMoveVelocity;
+        set => _extraScaleEnemyMoveVelocity = value;
     }
 
     public int ExtraPlayerDamage
@@ -65,8 +65,12 @@ public class GameModifiers : MonoBehaviour
         get => _extraEnemyDamage; 
         set => _extraEnemyDamage = value;
     }
-    
-    public int ExtraPlayerAttacksPerSecond { get; set; }
+
+    public int ExtraPlayerAttacksPerSecond
+    {
+        get => _extraPlayerAttacksPerSecond; 
+        set => _extraPlayerAttacksPerSecond = value;
+    }
     
     /// <summary>
     /// Apply a modifier to everything in the game
@@ -79,11 +83,11 @@ public class GameModifiers : MonoBehaviour
         {
             // ex: 1.5X -> 1.6X -> 1.7X faster
             case ModifierType.PlayerMoveSpeed:
-                ExtraScalePlayerVelocity += modifierValue;
+                ExtraPlayerMoveVelocity += modifierValue;
                 break;
             
             case ModifierType.EnemyMoveSpeed:
-                ExtraScaleEnemyVelocity += modifierValue;
+                ExtraEnemyMoveVelocity += modifierValue;
                 break;
             
             case ModifierType.PlayerDamage:
@@ -94,7 +98,7 @@ public class GameModifiers : MonoBehaviour
                 ExtraEnemyDamage += (int) modifierValue;
                 break;
             
-            case ModifierType.PlayerAttackSpeed:
+            case ModifierType.PlayerAttacksPerSecond:
                 ExtraPlayerAttacksPerSecond += (int) modifierValue;
                 break;
         }
@@ -102,7 +106,7 @@ public class GameModifiers : MonoBehaviour
     
     public enum ModifierType
     {
-        PlayerAttackSpeed = 0,
+        PlayerAttacksPerSecond = 0,
         PlayerDamage = 1,
         PlayerMoveSpeed = 2,
         

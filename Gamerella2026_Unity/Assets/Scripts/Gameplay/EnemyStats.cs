@@ -54,7 +54,7 @@ public class EnemyStats
     
     public int ModifiedAttackDamage => Mathf.Max(AttackDamage + Game.Instance.GameModifiers.ExtraEnemyDamage, 1); 
     
-    public float ModifiedMoveVelocity => MoveVelocity * Game.Instance.GameModifiers.ExtraScaleEnemyVelocity * (Game.Instance.Player.IsDead ? 0f : 1f);
+    public float ModifiedMoveVelocity => MoveVelocity * Game.Instance.GameModifiers.ExtraEnemyMoveVelocity * (Game.Instance.Player.IsDead ? 0f : 1f);
     
     #endregion
 }
