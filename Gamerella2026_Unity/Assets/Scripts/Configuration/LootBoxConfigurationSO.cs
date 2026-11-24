@@ -9,7 +9,12 @@ using static MenuNames;
 public class LootBoxConfigurationSO : ScriptableObject
 {
     [SerializeField]
+    private float _dropChance = 0.05f;
+    
+    [SerializeField]
     private List<ModifierValue> _modifiers = null;
+    
+    public float DropChance => _dropChance;
     
     public List<ModifierValue> Modifiers => _modifiers;
     

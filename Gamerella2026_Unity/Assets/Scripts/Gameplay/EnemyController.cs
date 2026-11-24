@@ -1,6 +1,8 @@
 using DG.Tweening;
+using Gameplay;
 using TMPro;
 using UnityEngine;
+
 using static EnemyConfigurationsSO;
 
 public class EnemyController : MonoBehaviour
@@ -16,6 +18,9 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private Collider2D _collider = null;
+    
+    [SerializeField]
+    private LootBoxConfigurationSO _lootboxConfiguration = null;
 
     [SerializeField]
     private Lootbox _lootboxPrefab = null;
@@ -26,18 +31,23 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private SkinnedMeshRenderer _enemyRenderer = null;
 
+    [SerializeField]
+    private EnemySounds _enemySounds = null;
+    
     [Header("Stats")]
     [SerializeField]
     [ReadOnly]
-    private EnemyStats _enemyStats;
+    private EnemyStats _enemyStats = null;
 
     public EnemyConfigurationsSO GlobalEnemyConfig => _enemyConfigurationsSO;
     
-    public EnemyConfiguration LocalConfig { get; private set; }
+    public EnemyConfiguration LocalEnemyConfig { get; private set; }
     
     public EnemyStats Stats => _enemyStats;
     
     private PlayerController Player => Game.Instance.Player;
+
+    private bool IsKnockedBack => _knockedBackSequence?.IsActive() ?? false;
     
     public Collider2D Collider => _collider;
         
@@ -46,7 +56,7 @@ public class EnemyController : MonoBehaviour
     
     public void SpawnWithConfiguration(EnemyConfiguration enemyConfiguration)
     {
-        LocalConfig = enemyConfiguration;
+        LocalEnemyConfig = enemyConfiguration;
         
         _enemyStats.Init(enemyConfiguration.BaseStats);
 
@@ -58,11 +68,13 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         // If we're not knocked back do movement like normal
-        if (!_knockedBackSequence?.IsActive() ?? true)
+        if (IsKnockedBack)
         {
-            DoMovement();
-            FacePlayer();
+            return;
         }
+        
+        FacePlayer();
+        DoMovement();
     }
 
     private void DoMovement()
@@ -78,6 +90,8 @@ public class EnemyController : MonoBehaviour
 
     public void OnAttackedByPlayer(PlayerController player)
     {
+        _enemySounds.PlayOnDamaged();
+        
         // Show the damage
         ShowHitText(player.Stats.AttackDamage.ToString());
         
@@ -119,13 +133,15 @@ public class EnemyController : MonoBehaviour
 
     private void Kill()
     {
+        _enemySounds.PlayOnDeath();
+        
         Player.NumTokens += Stats.TokensDropped;
         
         _knockedBackSequence?.Kill();
         
         Game.Instance.EnemySpawner.CleanupEnemy(this);
 
-        if (Random.value <= Lootbox.LootboxDropChance)
+        if (Random.value <= _lootboxConfiguration.DropChance)
         {
             DOTween.Sequence().AppendInterval(1.5f).OnComplete(() =>
             {
