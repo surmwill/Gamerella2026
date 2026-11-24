@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
     [ReadOnly]
     private EnemyStats _enemyStats;
 
-    public EnemyConfigurationsSO GlobalConfig => _enemyConfigurationsSO;
+    public EnemyConfigurationsSO GlobalEnemyConfig => _enemyConfigurationsSO;
     
     public EnemyConfiguration LocalConfig { get; private set; }
     
@@ -101,13 +101,13 @@ public class EnemyController : MonoBehaviour
         hitText.transform.SetParent(Game.Instance.HitTestTransform);
         
         // Ensure it's rendered on top
-        hitText.transform.position = transform.position.WithY(transform.position.y + GlobalConfig.HitTextOffsetY).WithZ(-0.003f);
+        hitText.transform.position = transform.position.WithY(transform.position.y + GlobalEnemyConfig.HitTextOffsetY).WithZ(-0.003f);
 
         hitText.text = text;
         hitText.alpha = 1.0f;
         
         _hitTestSequence = DOTween.Sequence()
-            .Append(hitText.DOFade(0f, GlobalConfig.HitTextDuration))
+            .Append(hitText.DOFade(0f, GlobalEnemyConfig.HitTextDuration))
             .OnKill(() =>
             {
                 if (Game.Instance != null)
@@ -147,13 +147,13 @@ public class EnemyController : MonoBehaviour
         
         // Switch to using force
         _enemyRigidbody.linearVelocity = Vector3.zero;
-        _enemyRigidbody.linearDamping = GlobalConfig.KnockbackLinearDampening;
+        _enemyRigidbody.linearDamping = GlobalEnemyConfig.KnockbackLinearDampening;
         _enemyRigidbody.AddForce(rawDirection * player.Stats.KnockbackForce, ForceMode2D.Impulse);
 
         // Disable the collider while spinning out
         _collider.enabled = false;
 
-        float baseSpins = player.Stats.KnockbackDuration * GlobalConfig.KnockbackSpinsPerSecond;
+        float baseSpins = player.Stats.KnockbackDuration * GlobalEnemyConfig.KnockbackSpinsPerSecond;
         float extraSpins = Random.value * 0.5f * (Random.value >= 0.5f ? 1f : -1f);
         
         // Switch back to using linear velocity
