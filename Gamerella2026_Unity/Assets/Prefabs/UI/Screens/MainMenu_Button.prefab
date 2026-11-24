@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 7184850827174328558}
   - component: {fileID: 8141271172328318712}
   - component: {fileID: 2404132001253992265}
+  - component: {fileID: 2747410722540065087}
   m_Layer: 0
   m_Name: MainMenu_Button
   m_TagString: Untagged
@@ -255,6 +256,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2747410722540065087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293728514846048686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4dfc2095f4d4484b7e45a59dba8028a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonAudio
+  _button: {fileID: 2404132001253992265}
+  _event:
+    Guid:
+      Data1: -183102479
+      Data2: 1272131337
+      Data3: 1389666961
+      Data4: 31075599
+    Path: event:/UI UX/click
 --- !u!1 &6135594647289143832
 GameObject:
   m_ObjectHideFlags: 0
