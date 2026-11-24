@@ -89,6 +89,13 @@ MonoBehaviour:
       Data3: 541424553
       Data4: 1258857666
     Path: event:/Players/Player_1/Player_Death
+  _onDamagedSoundReference:
+    Guid:
+      Data1: 1598284898
+      Data2: 1120969976
+      Data3: 819459730
+      Data4: 1993831551
+    Path: event:/Players/Player_1/Player_Damage
   _footstepsSoundReference:
     Guid:
       Data1: -399218115

@@ -12,12 +12,16 @@ public class PlayerSounds : MonoBehaviour
     
     [SerializeField]
     private EventReference _onDeathSoundReference;
+
+    [SerializeField]
+    private EventReference _onDamagedSoundReference;
     
     [SerializeField] 
     private EventReference _footstepsSoundReference;
 
     private EventInstance _onAttackSoundInstance;
     private EventInstance _onDeathSoundInstance;
+    private EventInstance _onDamagedSoundInstance;
     private EventInstance _footstepsSoundInstance;
     
     private const float FootstepsRepeatDelay = 0.4f;
@@ -28,6 +32,7 @@ public class PlayerSounds : MonoBehaviour
     {
         _footstepsSoundInstance =  RuntimeManager.CreateInstance(_footstepsSoundReference);
         _onAttackSoundInstance = RuntimeManager.CreateInstance(_onAttackSoundReference);
+        _onDamagedSoundInstance = RuntimeManager.CreateInstance(_onDamagedSoundReference);
         _onDeathSoundInstance = RuntimeManager.CreateInstance(_onDeathSoundReference);
     }
 
@@ -39,6 +44,16 @@ public class PlayerSounds : MonoBehaviour
     public void StopOnAttack()
     {
         _onAttackSoundInstance.stop(STOP_MODE.IMMEDIATE);
+    }
+
+    public void PlayOnDamaged()
+    {
+        _onDamagedSoundInstance.start();
+    }
+
+    public void StopOnDamaged()
+    {
+        _onDamagedSoundInstance.stop(STOP_MODE.IMMEDIATE);
     }
 
     public void PlayOnDeath()

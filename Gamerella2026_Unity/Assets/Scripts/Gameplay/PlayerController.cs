@@ -149,14 +149,19 @@ public class PlayerController : MonoBehaviour
         }
         
         // Otherwise we take the hit
+        _playerSounds.PlayOnDamaged();
+        
         _playerStats.Health = Math.Max(_playerStats.Health - enemy.Stats.AttackDamage, 0);
         if (_playerStats.Health <= 0)
         {
             OnDie();
         }
-        
-        enemy.ApplyKnockbackFromPlayer(this);
-        enemy.ShowHitText("Knockback Only");
+
+        if (!IsDead)
+        {
+            enemy.ApplyKnockbackFromPlayer(this);
+            enemy.ShowHitText("Knockback Only");   
+        }
     }
 
     private bool TryAttackClosestEnemy()
@@ -202,17 +207,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnDie()
     {
-        _playerSounds.StopOnAttack();
-        _playerSounds.TryStopFootsteps();
-        _playerSounds.PlayOnDeath();
+        IsDead = true;
         
         _playerRigidbody.linearVelocity = Vector2.zero;
         _playerRigidbody.simulated = false;
         _playerRigidbody.bodyType = RigidbodyType2D.Kinematic;
-
-        IsDead = true;
+        
+        _playerSounds.StopOnAttack();
+        _playerSounds.TryStopFootsteps();
+        _playerSounds.PlayOnDeath();
         
         _playerAnimator.Play(DeathStateHash);
+        
         DOTween.Sequence().AppendInterval(2.0f).AppendCallback(Game.Instance.EndGame);
     }
 }
