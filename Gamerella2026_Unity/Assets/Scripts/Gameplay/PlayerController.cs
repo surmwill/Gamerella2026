@@ -1,6 +1,5 @@
 using System;
 using DG.Tweening;
-using FMODUnity;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -21,13 +20,7 @@ public class PlayerController : MonoBehaviour
     private Animator _playerAnimator = null;
 
     [SerializeField]
-    private EventReference _onAttackSoundReference;
-    
-    [SerializeField]
-    private EventReference _onDeathSoundReference;
-    
-    [SerializeField] 
-    private EventReference _footstepSoundReference;
+    private PlayerSounds _playerSounds = null;
     
     [Header("Stats")]
     [SerializeField]
@@ -53,9 +46,9 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public bool IsDead { get; set; } = false;
-
-    public bool CanAttack => Game.Instance.ElapsedTimeSeconds - _timeOfLastAttack >= Stats.ModifiedAttackCooldownSeconds;
+    public bool IsDead { get; private set; }
+    
+    private bool CanAttack => Game.Instance.ElapsedTimeSeconds - _timeOfLastAttack >= Stats.ModifiedAttackCooldownSeconds;
 
     private const int MaxEnemiesDetectedInAttackRange = 10; 
     
@@ -90,7 +83,7 @@ public class PlayerController : MonoBehaviour
         _playerRigidbody.linearVelocity = _moveInput * _playerStats.MoveVelocity;
 
         // Face correction direction
-        if (Mathf.Abs(_moveInput.x) > 0)
+        if (Mathf.Abs(_moveInput.x) > 0f)
         {
             _model.localScale = _model.localScale.WithX(_moveInput.x >= 0f ? 1f : -1f);
         }
@@ -98,10 +91,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!IsDead)
+        if (IsDead)
         {
-            HandleMovement();   
+            return;
         }
+        
+        HandleMovement(); 
     }
 
     private void HandleMovement()
@@ -128,6 +123,15 @@ public class PlayerController : MonoBehaviour
         }
         
         _moveInput = new Vector2(moveX, moveY).normalized;
+        
+        if (_moveInput.sqrMagnitude > 0f)
+        {
+            _playerSounds.TryPlayFootsteps();
+        }
+        else
+        {
+            _playerSounds.TryStopFootsteps();
+        }
     }
 
     public void OnAttackedByEnemy(EnemyController enemy)
@@ -145,14 +149,19 @@ public class PlayerController : MonoBehaviour
         }
         
         // Otherwise we take the hit
+        _playerSounds.PlayOnDamaged();
+        
         _playerStats.Health = Math.Max(_playerStats.Health - enemy.Stats.AttackDamage, 0);
         if (_playerStats.Health <= 0)
         {
             OnDie();
         }
-        
-        enemy.ApplyKnockbackFromPlayer(this);
-        enemy.ShowHitText("Knockback Only");
+
+        if (!IsDead)
+        {
+            enemy.ApplyKnockbackFromPlayer(this);
+            enemy.ShowHitText("Knockback Only");   
+        }
     }
 
     private bool TryAttackClosestEnemy()
@@ -190,7 +199,7 @@ public class PlayerController : MonoBehaviour
     private void AttackEnemy(EnemyController enemy)
     {
         _playerAnimator.Play(AttackStateHash);
-        RuntimeManager.PlayOneShot(_onAttackSoundReference);
+        _playerSounds.PlayOnAttack();
         
         enemy.OnAttackedByPlayer(this);
         _timeOfLastAttack = Game.Instance.ElapsedTimeSeconds;
@@ -198,16 +207,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnDie()
     {
-        RuntimeManager.PlayOneShot(_onDeathSoundReference);
-        
-        foreach (Collider collider in GetComponentsInChildren<Collider>())
-        {
-            collider.enabled = false;
-        }
-
         IsDead = true;
         
+        _playerRigidbody.linearVelocity = Vector2.zero;
+        _playerRigidbody.simulated = false;
+        _playerRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        
+        _playerSounds.StopOnAttack();
+        _playerSounds.TryStopFootsteps();
+        _playerSounds.PlayOnDeath();
+        
         _playerAnimator.Play(DeathStateHash);
+        
         DOTween.Sequence().AppendInterval(2.0f).AppendCallback(Game.Instance.EndGame);
     }
 }

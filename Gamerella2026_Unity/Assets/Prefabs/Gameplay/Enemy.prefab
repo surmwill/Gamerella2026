@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886735744857729371}
   - component: {fileID: 5217676398875167500}
+  - component: {fileID: 3764759703033333176}
   - component: {fileID: 1939253900053662335}
   - component: {fileID: 3028397817672983370}
   m_Layer: 6
@@ -52,14 +53,49 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 3481134579726862018}
   _enemyRigidbody: {fileID: 1939253900053662335}
   _collider: {fileID: 3028397817672983370}
+  _lootboxConfiguration: {fileID: 11400000, guid: 0e4b2e692b712db43a8a918a640b7250, type: 2}
   _lootboxPrefab: {fileID: 3426569797909264099, guid: 70d8bdc86912c35429f34a84868a5325, type: 3}
   _model: {fileID: 6480998398790990005}
   _enemyRenderer: {fileID: 5057077223950232837}
+  _enemySounds: {fileID: 3764759703033333176}
   _enemyStats:
     _health: 0
     _attackDamage: 0
     _moveVelocity: 0
     _tokensDropped: 0
+--- !u!114 &3764759703033333176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50430592616823538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd2ec8cd45dc4b29ae435b6efec2bf48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.EnemySounds
+  _footstepsSoundReference:
+    Guid:
+      Data1: -177186130
+      Data2: 1251767620
+      Data3: 864077207
+      Data4: 1227052253
+    Path: event:/Ennemies/Ennemy_Footsteps
+  _onDamagedSoundReference:
+    Guid:
+      Data1: 931284629
+      Data2: 1259931376
+      Data3: 2021462440
+      Data4: 1957544124
+    Path: event:/Ennemies/Ennemy_Damage
+  _onDeathSoundReference:
+    Guid:
+      Data1: 1034395796
+      Data2: 1258584517
+      Data3: -1616211285
+      Data4: 1869016215
+    Path: event:/Ennemies/Ennemy_Death
 --- !u!50 &1939253900053662335
 Rigidbody2D:
   serializedVersion: 5

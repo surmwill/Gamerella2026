@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 407054307461784505}
   - component: {fileID: 4283231038684967777}
+  - component: {fileID: 9124787613153576317}
   - component: {fileID: 1369632976829333661}
   - component: {fileID: 2589414820928874920}
   m_Layer: 9
@@ -49,10 +50,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce5c4baae185de44903817c973637e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  _playerConfigurationSO: {fileID: 11400000, guid: 62e7da74120d7aa4e86934e2c7b14980, type: 2}
   _playerRigidbody: {fileID: 1369632976829333661}
   _attackArea: {fileID: 5668339629760343544}
   _model: {fileID: 1442746109015540789}
   _playerAnimator: {fileID: 2058101081966719637}
+  _playerSounds: {fileID: 9124787613153576317}
+  _playerStats:
+    _health: 0
+    _attacksPerSecond: 0
+    _attackDamage: 0
+    _moveVelocity: 0
+    _knockbackForce: 0
+    _knockbackDuration: 0
+--- !u!114 &9124787613153576317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674236546216587280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1db5013fc244a94ebbff9a071fc2c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSounds
   _onAttackSoundReference:
     Guid:
       Data1: 817015823
@@ -67,21 +89,20 @@ MonoBehaviour:
       Data3: 541424553
       Data4: 1258857666
     Path: event:/Players/Player_1/Player_Death
-  _footstepSoundReference:
+  _onDamagedSoundReference:
+    Guid:
+      Data1: 1598284898
+      Data2: 1120969976
+      Data3: 819459730
+      Data4: 1993831551
+    Path: event:/Players/Player_1/Player_Damage
+  _footstepsSoundReference:
     Guid:
       Data1: -399218115
       Data2: 1250863646
       Data3: 61427368
       Data4: -1216563141
     Path: event:/Players/Player_1/Player_Footsteps
-  _playerConfigurationSO: {fileID: 11400000, guid: 62e7da74120d7aa4e86934e2c7b14980, type: 2}
-  _playerStats:
-    _health: 0
-    _attacksPerSecond: 0
-    _attackDamage: 0
-    _moveVelocity: 0
-    _knockbackForce: 0
-    _knockbackDuration: 0
 --- !u!50 &1369632976829333661
 Rigidbody2D:
   serializedVersion: 5

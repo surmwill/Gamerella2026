@@ -6,14 +6,10 @@ using UnityEngine.UI;
 public class ButtonAudio : MonoBehaviour
 {
     [SerializeField]
-    private EventReference _event;
-
-    private Button _button;
-
-    private void Awake()
-    {
-        _button = GetComponent<Button>();
-    }
+    private Button _button = null;
+    
+    [SerializeField]
+    private EventReference _event = default;
 
     private void Start()
     {
@@ -28,5 +24,13 @@ public class ButtonAudio : MonoBehaviour
     private void OnDestroy()
     {
         _button.onClick.RemoveListener(PlayOneShot);
+    }
+
+    private void OnValidate()
+    {
+        if (_button == null)
+        {
+            _button = GetComponent<Button>();
+        }
     }
 }

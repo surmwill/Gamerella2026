@@ -1,4 +1,5 @@
 using System;
+using FMODUnity;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,10 +7,11 @@ using static LootBoxConfigurationSO;
 
 public class Lootbox : MonoBehaviour
 {
-    public const float LootboxDropChance = 0.05f;
-    
     [SerializeField]
     private LootBoxConfigurationSO _lootBoxConfiguration = null;
+
+    [SerializeField]
+    private EventReference _onPickupSoundReference = default;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,6 +26,11 @@ public class Lootbox : MonoBehaviour
 
         ModifierValue modifier = _lootBoxConfiguration.Modifiers[Random.Range(0, _lootBoxConfiguration.Modifiers.Count)];
         Game.Instance.GameModifiers.ApplyModifier(modifier.Type, modifier.Value * (isPositiveEffect ? 1f : -1f));
+
+        if (isPositiveEffect)
+        {
+            RuntimeManager.PlayOneShot(_onPickupSoundReference);
+        }
         
         Destroy(gameObject);
     }

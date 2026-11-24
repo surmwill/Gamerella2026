@@ -48,6 +48,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lootbox
   _lootBoxConfiguration: {fileID: 11400000, guid: 0e4b2e692b712db43a8a918a640b7250, type: 2}
+  _onPickupSoundReference:
+    Guid:
+      Data1: 320949433
+      Data2: 1156408179
+      Data3: 1379275190
+      Data4: -1533281700
+    Path: event:/UI UX/perk
 --- !u!61 &4117953830800502057
 BoxCollider2D:
   m_ObjectHideFlags: 0

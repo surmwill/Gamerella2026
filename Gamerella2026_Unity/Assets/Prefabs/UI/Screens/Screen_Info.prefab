@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 2409548964612599653}
   - component: {fileID: 8631225128273319092}
   - component: {fileID: 6690387214778044825}
+  - component: {fileID: 8691063204080428691}
   m_Layer: 0
   m_Name: PlayButton
   m_TagString: Untagged
@@ -555,6 +556,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8691063204080428691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3910864991424111085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4dfc2095f4d4484b7e45a59dba8028a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonAudio
+  _button: {fileID: 6690387214778044825}
+  _event:
+    Guid:
+      Data1: -183102479
+      Data2: 1272131337
+      Data3: 1389666961
+      Data4: 31075599
+    Path: event:/UI UX/click
 --- !u!1 &4049063019474366379
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,8 +998,47 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9103937457370234759, guid: 6652c118516f5fc4a82e3847f7d0541c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3337395789991755159}
   m_SourcePrefab: {fileID: 100100000, guid: 6652c118516f5fc4a82e3847f7d0541c, type: 3}
+--- !u!1 &2233265760256194310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9103937457370234759, guid: 6652c118516f5fc4a82e3847f7d0541c, type: 3}
+  m_PrefabInstance: {fileID: 6965249488314173569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3337395789991755159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233265760256194310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4dfc2095f4d4484b7e45a59dba8028a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonAudio
+  _button: {fileID: 3331049416664088950}
+  _event:
+    Guid:
+      Data1: -183102479
+      Data2: 1272131337
+      Data3: 1389666961
+      Data4: 31075599
+    Path: event:/UI UX/click
+--- !u!114 &3331049416664088950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5662091576440588791, guid: 6652c118516f5fc4a82e3847f7d0541c, type: 3}
+  m_PrefabInstance: {fileID: 6965249488314173569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233265760256194310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!224 &5707185051776112460 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3430184979424403405, guid: 6652c118516f5fc4a82e3847f7d0541c, type: 3}
